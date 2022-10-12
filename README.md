@@ -4,6 +4,6 @@ Our team’s project is focused on the creation of a library system that primari
 "********"
 ##<H2>Our Work Breakdown Structure</H2>
 Highlighting our team's distribution of responsibilities, we've created a work breakdown structure (WBS) to further help with the project management.
-## <H2>Gantt Chart Guiding</H2>
+## <H2>Gantt Chart and Scheduling Our Project</H2>
 For our project listed below is a rough estimation for the development of this project. This Gantt chart would hopefully help in estimating and guiding our development.
 ![alt text](https://github.com/310g17/librarySystem/blob/main/rscforReadme/GanntChart_Final.jpeg)

@@ -21,5 +21,5 @@ abstract class Account_abstract {//both user and admin can use
 }public void dateTracking(){
 
 }public void newAccount(){//push to db
-    myObj.
+    system.out.println("Please ")
 }

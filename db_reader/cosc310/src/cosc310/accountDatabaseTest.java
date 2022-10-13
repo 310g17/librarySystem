@@ -12,7 +12,7 @@ public class accountDatabaseTest {
 
 	public static void main(String[] args) {
 		String filename = "/Users/henryaugustiano/Documents/GitHub/librarySystem/Databases/userDB.csv";
-		ArrayList<accountDatabase> list = new ArrayList<>(5);
+		ArrayList<accountDatabase> accounts = new ArrayList<>(5);
 		Path pathToFile = Paths.get(filename);
 		
 		try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII)) 
@@ -20,23 +20,22 @@ public class accountDatabaseTest {
 			String line = br.readLine(); 
 			while (line != null) { 
 				String[] attributes = line.split(",");
-				Book book = createBook(attributes); 
-				books.add(book); 
+				accountDatabase account = createAccount(attributes); 
+				accounts.add(account); 
 				line = br.readLine(); } 
 			} 
 		catch (IOException ioe) { 
 			ioe.printStackTrace(); 
 			}
-			}
+		}
 
+	private static accountDatabase createAccount(String[] metadata) { 
+		int uid = Integer.parseInt(metadata[0]); 
+		String uname = metadata[1];
+		String pwd = metadata[2]; 
+		int lvl = Integer.parseInt(metadata[3]);
+		return new accountDatabase(uid, uname, pwd,lvl); 
+		}
 }
 
-private static accountDatabase createAccount(String[] metadata) { 
-	int uid = Integer.parseInt(metadata[0]); 
-	String uname = metadata[1];
-	String pwd = metadata[2]; 
-	int lvl = Integer.parseInt(metadata[3]);
-	return new accountDatabase(name, price, author); 
-	}
 
-}

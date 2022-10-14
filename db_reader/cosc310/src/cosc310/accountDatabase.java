@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.*;
 
@@ -19,12 +20,12 @@ public class accountDatabase {
 	private int lvl;
 	private int book1;
 	private int book2;
-	private Date date1;
-	private Date date2;
+	private LocalDate date1;
+	private LocalDate date2;
 	
 	
 	//constructor
-	public accountDatabase(int uid, String uname, String pwd, int lvl, int book1, int book2, Date date1, Date date2){
+	public accountDatabase(int uid, String uname, String pwd, int lvl, int book1, int book2, LocalDate date1, LocalDate date2){
 		this.uid = uid;
 		this.uname = uname;
 		this.pwd = pwd;
@@ -35,22 +36,12 @@ public class accountDatabase {
 		this.date2 = date2;
 	}
 	
-	public accountDatabase() {
-		this.uid = 0;
-		this.uname = null;
-		this.pwd = null;
-		this.lvl = 0; 
-		this.book1 = 0;
-		this.book2 = 0;
-		this.date1 = null;
-		this.date2 = null;
-	}
 
 	public static ArrayList<accountDatabase>  readDB(String path) throws ParseException {
 		String filename = path;
 		ArrayList<accountDatabase> accounts = new ArrayList<>();
 		Path pathToFile = Paths.get(filename);
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH); // cast string to date
+		
 		try (BufferedReader br = Files.newBufferedReader(pathToFile)) 
 		{ 
 			String line = br.readLine(); 
@@ -62,7 +53,8 @@ public class accountDatabase {
 				int uid = Integer.parseInt(attributes[0]);
 				int lvl = Integer.parseInt(attributes[3]);
 				int book1, book2;
-				Date date1, date2;
+				LocalDate date1;
+				LocalDate date2;
 				
 				//check if book1 || book2 cell is null
 				if(attributes[4].equals("NULL")) 
@@ -79,12 +71,12 @@ public class accountDatabase {
 				if(attributes[6].equals("NULL")) 
 					date1 = null;
 				else
-					date1 = formatter.parse(attributes[6]);
+					date1 = LocalDate.parse(attributes[6]);
 					
 				if(attributes[7].equals("NULL")) 
 					date2 = null;
 				else
-					date2 = formatter.parse(attributes[7]);
+					date2 = LocalDate.parse(attributes[7]);
 				
 				//create account objects and store to array
 				accountDatabase account = new accountDatabase(uid,attributes[1],attributes[2],lvl, book1, book2, date1, date2) ; 
@@ -191,28 +183,28 @@ public class accountDatabase {
 
 
 
-	public Date getDate1() {
+	public LocalDate getDate1() {
 		return date1;
 	}
 
 
 
 
-	public void setDate1(Date date1) {
+	public void setDate1(LocalDate date1) {
 		this.date1 = date1;
 	}
 
 
 
 
-	public Date getDate2() {
+	public LocalDate getDate2() {
 		return date2;
 	}
 
 
 
 
-	public void setDate2(Date date2) {
+	public void setDate2(LocalDate date2) {
 		this.date2 = date2;
 	}
 

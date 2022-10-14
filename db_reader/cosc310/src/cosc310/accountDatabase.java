@@ -35,10 +35,18 @@ public class accountDatabase {
 		this.date2 = date2;
 	}
 	
-	
+	public accountDatabase() {
+		this.uid = 0;
+		this.uname = null;
+		this.pwd = null;
+		this.lvl = 0; 
+		this.book1 = 0;
+		this.book2 = 0;
+		this.date1 = null;
+		this.date2 = null;
+	}
 
-
-	public void readDB(String path) throws ParseException {
+	public static ArrayList<accountDatabase>  readDB(String path) throws ParseException {
 		String filename = path;
 		ArrayList<accountDatabase> accounts = new ArrayList<>();
 		Path pathToFile = Paths.get(filename);
@@ -88,14 +96,15 @@ public class accountDatabase {
 			System.out.println("IO exception occured");
 			ioe.printStackTrace(); 
 			}
+		return accounts;
 	}
 	
-	public static void updatepwd(String newpw ) {
-		
-		
-		}
 
-
+	@Override
+	public String toString() {
+		return "accountDatabase [uid=" + uid + ", uname=" + uname + ", pwd=" + pwd + ", lvl=" + lvl + ", book1=" + book1
+				+ ", book2=" + book2 + ", date1=" + date1 + ", date2=" + date2 + "]";
+	}
 
 
 	public int getUid() {

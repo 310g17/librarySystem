@@ -9,13 +9,14 @@ public class main  {
         String name = "ABC";
         int uid = 123456;
         String password = "aBc223";
-        LocalDate[] dateBor = { LocalDate.parse("2022-05-03", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                LocalDate.parse("2022-10-13", DateTimeFormatter.ofPattern("yyyy-MM-dd"))};
+        LocalDate[] dateBor = { LocalDate.parse("2022-09-03", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                LocalDate.parse("2022-09-29", DateTimeFormatter.ofPattern("yyyy-MM-dd"))};
         //log in will set the variables and what they can do
         //UID, name, password, borrowedBooks, 0, dateBor
         Admin adminNew = new Admin(uid, name, password, borrowedBooks, dateBor);
         System.out.println(adminNew.toString());
-        System.out.println(adminNew.returnBook("ABC"));
+        System.out.println(adminNew.returnBook("BEF"));
+        System.out.println(adminNew.toString());
     }
 //}public void login(int UID, String password){ //login information
 //    //compare with db

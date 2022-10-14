@@ -55,6 +55,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", borrowedBooks=" + Arrays.toString(borrowedBooks) +
+                ", dateBorrowed=" + Arrays.toString(dateBor) +
                 ", access=" + access +
                 '}';
        }else{
@@ -63,33 +64,13 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
                    ", name='" + name + '\'' +
                    ", password='" + password + '\'' +
                    ", borrowedBooks=" + Arrays.toString(borrowedBooks) +
+                   ", dateBorrowed=" + Arrays.toString(dateBor) +
                    ", access=" + access +
                    '}';
        }
     }
     
-    public double payLateFees(String bookname) {
-    	double payAmt = dateTracking(bookname)*2;
-    	return payAmt;
-    }
 
-    public double dateTracking(String bookname){
-        int index = dateBookMatch(this.borrowedBooks, bookname);
-        LocalDate dateBorrowed = dateBor[index]; //date borrowing book
-        LocalDate date = LocalDate.now(); //current date
-        long durationA = DAYS.between(dateBorrowed, date);
-        System.out.println("Days between return and borrowed: " + durationA);
-    	return durationA;
-    }
-    public int dateBookMatch(String[] borrowedBooks, String bookTitle){ //how to get the indecex of each book and dateBor
-        for(int i = 0; i < borrowedBooks.length - 1; i++){
-            if(borrowedBooks[i] == bookTitle){
-                return i;
-
-            }
-        }
-        return -1;
-    }
     public String[] getBorrowedBooks() {
         return borrowedBooks;
     }
@@ -110,13 +91,56 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         //reduce number of books available
         return bookName + " has been borrowed.";
     }
+    //NEED TO UPDATE CSV FILE UPON COMPLETION OF METHOD
     public String returnBook(String bookName){
         //return book
         double fees = payLateFees(bookName);
+        bookReturn(bookName);
         if(fees > 0){
             return bookName + " has been returned. Late fees: " + fees;
-        }else{
+        } else if (fees < 0) {
+            return "";
+        } else{
             return bookName + " has been returned. Late fees: 0";
         }
+    }
+    public void bookReturn(String bookName){
+        try{
+            int i = dateBookMatch(borrowedBooks, bookName);
+            this.borrowedBooks[i] = null; //remove book
+            this.dateBor[i] = null;
+            }
+        catch (Exception e){
+            System.out.println("Cannot find book in your borrowed list");
+        }
+    }
+    public double payLateFees(String bookname) {
+        double payAmt = dateTracking(bookname)*2;
+        return payAmt;
+    }
+
+    public double dateTracking(String bookname){
+        int index = dateBookMatch(this.borrowedBooks, bookname);
+        try{
+        LocalDate dateBorrowed = dateBor[index]; //date borrowing book
+            LocalDate date = LocalDate.now(); //current date
+            long durationA = DAYS.between(dateBorrowed, date);
+            System.out.println("Days between return and borrowed: " + durationA);
+            if(durationA > 14){
+                return durationA;
+            }else{
+                return 0;}
+            }
+        catch(Exception e){
+            System.out.println("Incorrect book name");}
+        return -1;
+    }
+    public int dateBookMatch(String[] borrowedBooks, String bookTitle){ //how to get the index of each book and dateBor
+        for(int i = 0; i < borrowedBooks.length; i++){
+            if(borrowedBooks[i] == bookTitle){
+                return i;
+            }
+        }
+        return -1;
     }
 }

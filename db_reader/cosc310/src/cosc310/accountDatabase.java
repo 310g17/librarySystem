@@ -6,13 +6,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.*;
+
 
 public class accountDatabase {
 	//attributes
-	private int uid;
-	private String uname;
+	private int uid;	  
+	private String uname; 
 	private String pwd; 
-	private int lvl;
+	private int lvl;	
 	
 	//constructor
 	public accountDatabase(int uid, String uname, String pwd, int lvl){
@@ -52,6 +54,11 @@ public class accountDatabase {
 			ioe.printStackTrace(); 
 			}
 	}
+	
+	public static void updatepwd(String newpw ) {
+		
+		
+		}
 
 
 	public int getUid() {

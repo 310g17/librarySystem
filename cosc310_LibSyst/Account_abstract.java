@@ -10,6 +10,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
     int currentUid;
     private String currentPw;
     int access;
+    
 }public void login(int UID, String password){ //login information
     //compare with db
     while(login == false){

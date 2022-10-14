@@ -1,16 +1,26 @@
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+import static java.time.temporal.ChronoUnit.DAYS;
+
 abstract class Account_abstract {//both user and admin can use furhter extend database
     protected int UID;
     protected String name;
     protected String password;
-    protected List<String> borrowedBooks;
+    protected String[] borrowedBooks; //[[Bookname],[bookname2]]
     protected int access;
-    Account_abstract(String name, int uid, String password, List<String> borrowedBooks, int access){
+    LocalDate[] dateBor;//[[dateBorrowed1], [dateBorrowed2]]
+
+    public Account_abstract(int UID, String name, String password, String[] borrowedBooks, int access, LocalDate[] dateBor) {
+        this.UID = UID;
         this.name = name;
-        this.UID = uid;
         this.password = password;
         this.borrowedBooks = borrowedBooks;
         this.access = access;
+        this.dateBor = dateBor;
     }
 
     public int getUID() {
@@ -44,7 +54,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
                 "UID=" + UID +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
-                ", borrowedBooks=" + borrowedBooks +
+                ", borrowedBooks=" + Arrays.toString(borrowedBooks) +
                 ", access=" + access +
                 '}';
        }else{
@@ -52,29 +62,39 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
                    "UID=" + UID +
                    ", name='" + name + '\'' +
                    ", password='" + password + '\'' +
-                   ", borrowedBooks=" + borrowedBooks +
+                   ", borrowedBooks=" + Arrays.toString(borrowedBooks) +
                    ", access=" + access +
                    '}';
        }
     }
     
-    public int payLateFees() {
-    	int payAmt = (int)dateTracking()*2;
+    public double payLateFees(String bookname) {
+    	double payAmt = dateTracking(bookname)*2;
     	return payAmt;
     }
 
-
-    public int dateTracking(){
-    	timeDiff = Math.abs(dateRet - dateBor);
-    	daysDiff = (int)TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
-    	return daysDiff;
+    public double dateTracking(String bookname){
+        int index = dateBookMatch(this.borrowedBooks, bookname);
+        LocalDate dateBorrowed = dateBor[index]; //date borrowing book
+        LocalDate date = LocalDate.now(); //current date
+        long durationA = DAYS.between(dateBorrowed, date);
+        System.out.println("Days between return and borrowed: " + durationA);
+    	return durationA;
     }
+    public int dateBookMatch(String[] borrowedBooks, String bookTitle){ //how to get the indecex of each book and dateBor
+        for(int i = 0; i < borrowedBooks.length - 1; i++){
+            if(borrowedBooks[i] == bookTitle){
+                return i;
 
-    public List<String> getBorrowedBooks() {
+            }
+        }
+        return -1;
+    }
+    public String[] getBorrowedBooks() {
         return borrowedBooks;
     }
 
-    public void setBorrowedBooks(List<String> borrowedBooks) {
+    public void setBorrowedBooks(String[] borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
     }
 
@@ -84,62 +104,19 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
 
     public void setAccess(int access) {
         access = access;
-    }public String borrowBook(String bookName){
+    }
+    public String borrowBook(String bookName){
         //add book to account profile
         //reduce number of books available
-        return bookName + " has been borrowed";
+        return bookName + " has been borrowed.";
     }
-    //    String name;
-//    private int[] UIDarray;
-//    private String[] password; //ONLY USED HERE
-//    int borrowedAmt;
-//    String[] borrowedBooks; //array within array [str, date] i[0]
-//    public boolean login = false; //determines access to other methods
-//    private Scanner myObj = new Scanner(System.in);
-//    int currentUid;
-//    private String currentPw;
-//    int access;
-//}public void login(int UID, String password){ //login information
-//    //compare with db
-//    while(login == false){
-//        if(currentUid == this.UID && currentPw == this.password){
-//            login = true;
-//            break;
-//    }
-//    }
-//}public void borrowBook(){
-//
-//}public void returnBook(){
-//
-//}public void dateTracking(){
-//
-//}public void newAccount(){//push to db
-//    boolean done = false;
-//    while(done == false) {
-//        System.out.println("Enter your uid (6 integers): ");
-//        try{
-//        int userName = myObj.nextLine();
-//        done = uidExists(userName);
-//        if(done == true){
-//            System.out.println("Enter your password (a combination of letters and strings: ");
-//            String password = myObj.nextLine();
-//            break;
-//        }}catch(Exception e){
-//            System.out.println("Incorrect input, please try again");
-//        }
-//    }
-//    ////// add new userid and pw to db
-//
-//}
-//private boolean uidExists(userName){ // checks availability of username
-//    boolean checkIf = true;
-//    for(int i = 0; i < (UIDarray.length-1); i++){
-//        if(userName == UIDarray[i]){
-//            checkIf == false;
-//            break;
-//        }
-//    }
-//    return checkIf;
-//}private String filter(){
-//    //use book filtering system
+    public String returnBook(String bookName){
+        //return book
+        double fees = payLateFees(bookName);
+        if(fees > 0){
+            return bookName + " has been returned. Late fees: " + fees;
+        }else{
+            return bookName + " has been returned. Late fees: 0";
+        }
+    }
 }

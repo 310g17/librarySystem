@@ -2,7 +2,6 @@ package cosc310;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,30 +11,34 @@ public class accountDatabaseTest {
 
 	public static void main(String[] args) {
 		String filename = "/Users/henryaugustiano/Documents/GitHub/librarySystem/Databases/userDB.csv";
-		ArrayList<accountDatabase> accounts = new ArrayList<>(5);
+		ArrayList<accountDatabase> accounts = new ArrayList<>(10);
 		Path pathToFile = Paths.get(filename);
 		
-		try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII)) 
+		try (BufferedReader br = Files.newBufferedReader(pathToFile)) 
 		{ 
 			String line = br.readLine(); 
+			line = br.readLine(); //to skip the file header
 			while (line != null) { 
 				String[] attributes = line.split(",");
-				accountDatabase account = createAccount(attributes); 
+				int uid = Integer.parseInt(attributes[0]);
+				int lvl = Integer.parseInt(attributes[3]);
+				accountDatabase account = new accountDatabase(uid,attributes[1],attributes[2],lvl) ; 
 				accounts.add(account); 
-				line = br.readLine(); } 
+				line = br.readLine(); 
+				} 
 			} 
 		catch (IOException ioe) { 
+			System.out.println("IO exception occured");
 			ioe.printStackTrace(); 
 			}
-		}
+		
+		//testing 
+		for (accountDatabase acc : accounts) {
+			System.out.println(acc);
+			}
+	}
 
-	private static accountDatabase createAccount(String[] metadata) { 
-		int uid = Integer.parseInt(metadata[0]); 
-		String uname = metadata[1];
-		String pwd = metadata[2]; 
-		int lvl = Integer.parseInt(metadata[3]);
-		return new accountDatabase(uid, uname, pwd,lvl); 
-		}
+
 }
 
 

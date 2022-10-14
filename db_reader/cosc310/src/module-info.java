@@ -6,4 +6,5 @@
  *
  */
 module cosc310 {
+	requires com.opencsv;
 }

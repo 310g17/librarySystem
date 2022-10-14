@@ -15,7 +15,8 @@ public class main  {
         //UID, name, password, borrowedBooks, 0, dateBor
         Admin adminNew = new Admin(uid, name, password, borrowedBooks, dateBor);
         System.out.println(adminNew.toString());
-        System.out.println(adminNew.returnBook("ABC"));
+        System.out.println(adminNew.returnBook("BEF"));
+        System.out.println(adminNew.toString());
     }
 //}public void login(int UID, String password){ //login information
 //    //compare with db

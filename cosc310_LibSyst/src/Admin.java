@@ -10,7 +10,7 @@ public class Admin extends Account_abstract{ //can create objects from class
         return book + "has been added to the system";
     }
     public String removeBook(String book){
-        return book + "has been removed to the system";
+        return book + "has been removed from the system";
     }
 }//add add/remove book fn
 

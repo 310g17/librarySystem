@@ -104,7 +104,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
             return bookName + " has been returned. Late fees: 0";
         }
     }
-    public void bookReturn(String bookName){
+    private void bookReturn(String bookName){
         try{
             int i = dateBookMatch(borrowedBooks, bookName);
             this.borrowedBooks[i] = null; //remove book
@@ -114,12 +114,12 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
             System.out.println("Cannot find book in your borrowed list");
         }
     }
-    public double payLateFees(String bookname) {
+    private double payLateFees(String bookname) {
         double payAmt = dateTracking(bookname)*2;
         return payAmt;
     }
 
-    public double dateTracking(String bookname){
+    private double dateTracking(String bookname){
         int index = dateBookMatch(this.borrowedBooks, bookname);
         try{
         LocalDate dateBorrowed = dateBor[index]; //date borrowing book
@@ -135,9 +135,9 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
             System.out.println("Incorrect book name");}
         return -1;
     }
-    public int dateBookMatch(String[] borrowedBooks, String bookTitle){ //how to get the index of each book and dateBor
+    private int dateBookMatch(String[] borrowedBooks, String bookTitle){ //how to get the index of each book and dateBor
         for(int i = 0; i < borrowedBooks.length; i++){
-            if(borrowedBooks[i] == bookTitle){
+            if(borrowedBooks[i].equals(bookTitle)){
                 return i;
             }
         }

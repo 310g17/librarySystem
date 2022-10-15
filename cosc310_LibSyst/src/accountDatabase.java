@@ -101,6 +101,19 @@ public class accountDatabase {
         }
     }
 
+    public void removeBook(int index, String oldbook) {
+        for (int i = 0; i <index+1; i++) {
+            if(i == index && book1.equals(oldbook))
+                this.book1 = "NULL";
+            else if (i == index && book2.equals(oldbook))
+                this.book2 = "NULL";
+            else 
+                System.out.println("you already borrowed 2 books!");
+        }
+    }
+
+
+
 
     @Override
     public String toString() {

@@ -1,11 +1,27 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+import java.time.LocalDate;
+>>>>>>> Stashed changes
 import java.util.*;
 public class main {
     public static void main(String[] args) throws Exception {
         //pull data from database class
         ArrayList<accountDatabase> DBData = accountDatabase.readDB("C:\\Users\\ardik\\OneDrive\\Desktop\\userDB_String.csv");
         //Ask what user wants to do
+        //upon creating a new account make new and then end the program
         Scanner in = new Scanner(System.in); //use .equals to compare strings
+        System.out.print("What would you like to do? Login (type login) or create a new account (type create): ");
+        String decision = in.nextLine();
+        if(decision.equals("create")){
+            //add create an account method
+
+            return;
+        }else if(decision.equals("login")){
+
+        }else{
+            System.out.println("That is not a valid input, terminating");
+        }
         boolean useB = false;
         String username = "";
         int index = -1;
@@ -23,13 +39,14 @@ public class main {
         while (useB == false) {
             String password = in.nextLine();
             if (pMatching(DBData, password, index) == password){
-                System.out.println("Login successful. Welcome " + username);
+                System.out.println("Login successful. Welcome " + username + ".");
                 break;
             }else{
                 System.out.println("That is not a valid password. Please enter the right password: ");
             };
         }
         accountDatabase loggedIn = DBData.get(index);
+<<<<<<< Updated upstream
 
 =======
 package Step2;
@@ -66,6 +83,18 @@ public class main  {
         adb.setPwd("catcat123");
         
         
+>>>>>>> Stashed changes
+=======
+        int accessLevel = loggedIn.getLvl();
+        String[] borrowedBooks = {loggedIn.getBook1(), loggedIn.getBook2()};
+        LocalDate[] dateBor = {loggedIn.getDate1(), loggedIn.getDate2()};
+        Account_abstract currentUser;
+        if(accessLevel == 0){
+            currentUser = new Admin(loggedIn.getUid(), loggedIn.getUname(), loggedIn.getPwd(),borrowedBooks, dateBor);
+        }else{
+            currentUser = new User(loggedIn.getUid(), loggedIn.getUname(), loggedIn.getPwd(),borrowedBooks, dateBor);
+        }
+        System.out.println(currentUser.toString());
 >>>>>>> Stashed changes
     }
     public static int setIndex(ArrayList<accountDatabase> DBData, String username){

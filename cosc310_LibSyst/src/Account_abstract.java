@@ -28,6 +28,14 @@ abstract class Account_abstract{//both user and admin can use furhter extend dat
         this.access = access;
         this.dateBor = dateBor;
     }
+    public Account_abstract() {
+        this.UID = -1;
+        this.name = null;
+        this.password = null;
+        this.borrowedBooks = null;
+        this.access = -1;
+        this.dateBor = null;
+    }
 
     public int getUID() {
         return UID;

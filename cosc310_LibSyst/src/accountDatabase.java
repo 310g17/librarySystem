@@ -104,18 +104,15 @@ public class accountDatabase {
 
 
 
-
     public void setUid(int uid) {
         this.uid = uid;
     }
 
 
 
-
     public String getUname() {
         return uname;
     }
-
 
 
 

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import java.util.*;
 public class main {
     public static void main(String[] args) throws Exception {
@@ -30,6 +31,42 @@ public class main {
         }
         accountDatabase loggedIn = DBData.get(index);
 
+=======
+package Step2;
+
+import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.IOException;	
+
+
+public class main  {
+    public static void main(String[] args){
+        //pull data from database class
+        String[] borrowedBooks = {"ABC", "BEF"};
+        String name = "ABC";
+        int uid = 123456;
+        String password = "aBc223";
+        LocalDate[] dateBor = { LocalDate.parse("2022-09-03", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                LocalDate.parse("2022-09-29", DateTimeFormatter.ofPattern("yyyy-MM-dd"))};
+        //log in will set the variables and what they can do
+        //UID, name, password, borrowedBooks, 0, dateBor
+        Admin adminNew = new Admin(uid, name, password, borrowedBooks, dateBor);
+        System.out.println(adminNew.toString());
+        System.out.println(adminNew.returnBook("ABC"));
+        System.out.println(adminNew.toString());
+        
+        ArrayList<accountDatabase> update = new ArrayList<accountDatabase>();
+        accountDatabase adb = new accountDatabase();
+        adb.setUid(112233);
+        adb.setUname("catdog");
+        adb.setPwd("catcat123");
+        
+        
+>>>>>>> Stashed changes
     }
     public static int setIndex(ArrayList<accountDatabase> DBData, String username){
         int result = -1;

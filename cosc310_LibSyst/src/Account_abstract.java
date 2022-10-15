@@ -1,3 +1,5 @@
+package Step2;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,14 +8,18 @@ import java.util.concurrent.TimeUnit;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-abstract class Account_abstract {//both user and admin can use furhter extend database
+import java.io.File;
+import java.io.*;
+
+abstract class Account_abstract{//both user and admin can use furhter extend database
     protected int UID;
-    protected String name; //username
+    protected String name;
     protected String password;
     protected String[] borrowedBooks; //[[Bookname],[bookname2]]
     protected int access;
-    LocalDate[] dateBor;//[[dateBorrowed1], [dateBorrowed2]]
-
+    LocalDate[] dateBor;
+    private static Scanner x;//[[dateBorrowed1], [dateBorrowed2]]
+    
     public Account_abstract(int UID, String name, String password, String[] borrowedBooks, int access, LocalDate[] dateBor) {
         this.UID = UID;
         this.name = name;
@@ -84,7 +90,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
     }
 
     public void setAccess(int access) {
-        access = access;
+        this.access = access;
     }
     public String borrowBook(String bookName){
         //add book to account profile
@@ -151,6 +157,42 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         catch(Exception e){
             System.out.println("Incorrect book name");}
         return -1;
+    }
+public static void updateCSV(ArrayList a) {
+        String tempFile = "temp.txt";
+    	String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv";
+    	File inputFile = new File(loc);
+    	File newFile = new File (loc);
+    	File oldFile = new File (tempFile);
+    	String uid="", uname="", pwd="", lvl="", book1="", book2="", date1="", date2="";
+
+        try {
+        	FileWriter fw = new FileWriter(tempFile, true);
+        	BufferedWriter bw = new BufferedWriter(fw);
+        	PrintWriter pw = new PrintWriter(bw);
+        	x = new Scanner(new File(loc));
+        	x.useDelimiter("[,\n]");
+        	
+        	while(x.hasNext()) {
+        		uid = x.next();
+        		uname = x.next();
+        		pwd = x.next();
+        		lvl = x.next();
+        		book1 = x.next();
+        		book2 = x.next();
+        		date1 = x.next();
+        		date2 = x.next();
+        		
+        		if(uid.equals(a.getUID())
+        			pw.println(a.getUID()+","+a.getUname()+","+a.getPwd()+","+a.getLvl()+","+a.getBook1()+","+a.getBook2()+","+a.getDate1()+","+ a.getDate2());
+        		else
+        			pw.println(uid + "," + uname + "," + pwd + "," + lvl + "," + book1 + "," + book2 + "," + date1 + "," + date2);
+        	}
+        }
+        x.close();
+        pw.flush();
+        pw.close();
+        oldFile.delete();
     }
     public int dateBookMatch(String[] borrowedBooks, String bookTitle){ //how to get the index of each book and dateBor
         for(int i = 0; i < borrowedBooks.length; i++){

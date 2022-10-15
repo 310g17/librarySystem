@@ -1,0 +1,11 @@
+uid,uname,pwd,lvl,book1,book2,date1,date2
+112233,catdog,catcat123,1,Pride and Prejudice,NULL,2022-09-15,NULL
+112234,monstercute,cute1212,1,The Red and the Black,The History of Tom Jones,2022-08-20,2022-10-11
+112235,angrycat,angcat12,1,Le Pere Goriot,NULL,2022-10-02,NULL
+112236,catslayer66,slaycat12,1,NULL,NULL,NULL,NULL
+112237,ubcostudent,goheat,1,The Brothers Karamazov,Moby-Dick,2022-09-29,2022-10-05
+112238,ripgrade,byebye,1,NULL,NULL,NULL,NULL
+112239,loverboy,boyohboy,1,David Copperfield,Madame Bovary,2022-10-01,2022-10-06
+112240,katyplaty,jibakutai,0,War and Peace,NULL,2022-09-25,NULL
+112241,taylorjeez,nienfu,0,The History of Tom Jones,NULL,2022-07-20,NULL
+112242,bandold,romoshi,1,NULL,NULL,NULL,NULL

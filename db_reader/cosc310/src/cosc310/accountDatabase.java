@@ -18,14 +18,14 @@ public class accountDatabase {
 	private String uname; 
 	private String pwd; 
 	private int lvl;
-	private int book1;
-	private int book2;
+	private String book1;
+	private String book2;
 	private LocalDate date1;
 	private LocalDate date2;
 	
 	
 	//constructor
-	public accountDatabase(int uid, String uname, String pwd, int lvl, int book1, int book2, LocalDate date1, LocalDate date2){
+	public accountDatabase(int uid, String uname, String pwd, int lvl, String book1, String book2, LocalDate date1, LocalDate date2){
 		this.uid = uid;
 		this.uname = uname;
 		this.pwd = pwd;
@@ -52,20 +52,20 @@ public class accountDatabase {
 				String[] attributes = line.split(",");
 				int uid = Integer.parseInt(attributes[0]);
 				int lvl = Integer.parseInt(attributes[3]);
-				int book1, book2;
+				String book1, book2;
 				LocalDate date1;
 				LocalDate date2;
 				
 				//check if book1 || book2 cell is null
 				if(attributes[4].equals("NULL")) 
-					book1 = 0;
+					book1 = "";
 				else
-					book1 = Integer.parseInt(attributes[4]);
+					book1 = String(attributes[4]);
 					
 				if(attributes[5].equals("NULL")) 
-					book2 = 0;
+					book2 = "";
 				else
-					book2 = Integer.parseInt(attributes[5]);
+					book2 = String(attributes[5]);
 				
 				//check if date1 || date2 is null
 				if(attributes[6].equals("NULL")) 
@@ -155,28 +155,28 @@ public class accountDatabase {
 
 
 
-	public int getBook1() {
+	public String getBook1() {
 		return book1;
 	}
 
 
 
 
-	public void setBook1(int book1) {
+	public void setBook1(String book1) {
 		this.book1 = book1;
 	}
 
 
 
 
-	public int getBook2() {
+	public String getBook2() {
 		return book2;
 	}
 
 
 
 
-	public void setBook2(int book2) {
+	public void setBook2(String book2) {
 		this.book2 = book2;
 	}
 
@@ -207,10 +207,6 @@ public class accountDatabase {
 	public void setDate2(LocalDate date2) {
 		this.date2 = date2;
 	}
-
-
-	
-
 
 	
 	

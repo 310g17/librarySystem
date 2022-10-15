@@ -1,9 +1,10 @@
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.*;
 public class main  {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //pull data from database class
         String[] borrowedBooks = {"ABC", "BEF"};
         String name = "ABC";
@@ -17,6 +18,9 @@ public class main  {
         System.out.println(adminNew.toString());
         System.out.println(adminNew.returnBook("BEF"));
         System.out.println(adminNew.toString());
+
+        ArrayList<accountDatabase>  DBData = accountDatabase.readDB("");
+        System.out.println(DBData.toString());
     }
 //}public void login(int UID, String password){ //login information
 //    //compare with db

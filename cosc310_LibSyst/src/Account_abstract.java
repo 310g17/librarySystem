@@ -8,7 +8,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 abstract class Account_abstract {//both user and admin can use furhter extend database
     protected int UID;
-    protected String name;
+    protected String name; //username
     protected String password;
     protected String[] borrowedBooks; //[[Bookname],[bookname2]]
     protected int access;

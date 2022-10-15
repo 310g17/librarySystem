@@ -90,6 +90,17 @@ public class accountDatabase {
         return accounts;
     }
 
+    public void setBook(int index, String newBook) {
+        for (int i = 0; i <index+1; i++) {
+            if(i == index && book1.equals("NULL"))
+                this.book1 = newBook;
+            else if (i == index && book2.equals("NULL"))
+                this.book2 = newBook;
+            else 
+                System.out.println("you already borrowed 2 books!");
+        }
+    }
+
 
     @Override
     public String toString() {
@@ -104,15 +115,18 @@ public class accountDatabase {
 
 
 
+
     public void setUid(int uid) {
         this.uid = uid;
     }
 
 
 
+
     public String getUname() {
         return uname;
     }
+
 
 
 
@@ -153,13 +167,6 @@ public class accountDatabase {
 
     public String getBook1() {
         return book1;
-    }
-
-
-
-
-    public void setBook1(String book1) {
-        this.book1 = book1;
     }
 
 

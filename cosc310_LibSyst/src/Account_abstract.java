@@ -104,6 +104,23 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
             return bookName + " has been returned. Late fees: 0";
         }
     }
+    
+    public String newAccount(String book){
+    	try {
+            File dir = new File(".");
+    		String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv";
+     
+    		FileWriter fstream = new FileWriter(loc, true);
+    		BufferedWriter out = new BufferedWriter(fstream);
+    		out.newLine();
+    		out.write("112235, sam, sam12345, 0, Red Riding Hood, NULL, 2022-08-23, NULL");
+    		out.close();
+            } catch (IOException e) {
+            	System.out.println("IOException");
+            }
+    	return "Account has been added to the system";
+    }
+    
     public void bookReturn(String bookName){
         try{
             int i = dateBookMatch(borrowedBooks, bookName);

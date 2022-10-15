@@ -60,12 +60,12 @@ public class accountDatabase {
 				if(attributes[4].equals("NULL")) 
 					book1 = "";
 				else
-					book1 = String(attributes[4]);
+					book1 = attributes[4];
 					
 				if(attributes[5].equals("NULL")) 
 					book2 = "";
 				else
-					book2 = String(attributes[5]);
+					book2 = attributes[5];
 				
 				//check if date1 || date2 is null
 				if(attributes[6].equals("NULL")) 

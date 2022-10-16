@@ -9,23 +9,27 @@ public class book {
     String author;
     int year;
     String genre;
-    int UID;
     int qty;
     boolean borrowed;
 
 
 
     book(){
-
+    	this.ISBN = 0;
+    	this.name = null;
+    	this.author = null;
+    	this.year = 0;
+    	this.genre = null;
+    	this.qty = 0;
+    	this.borrowed = false;
     }
 
-    book(int ISBN,String name, String author, int year, String genre, int UID, int qty,boolean borrowed){
+    book(int ISBN,String name, String author, int year, String genre, int qty,boolean borrowed){
         setAuthor(author);
         setGenre(genre);
         setISBN(ISBN);
         setName(name);
         setQty(qty);
-        setUID(UID);
         setYear(year);
         setBorrowed(borrowed);
     }
@@ -45,19 +49,17 @@ public class book {
     public String getAuthor() {
         return author;
     }
-    public int getUID() {
-        return UID;
-    }
     public int getQty() {
         return qty;
     }
     public String getGenre() {
         return genre;
     }
-
+    public boolean getBorrowed() {
+        return borrowed;
+    }
 
     //setters
-
     public void setName(String name) {
         this.name = name;
     }
@@ -76,9 +78,6 @@ public class book {
     public void setQty(int qty) {
         this.qty = qty;
     }
-    public void setUID(int UID) {
-        this.UID = UID;
-    }
 
     public void setBorrowed(boolean borrowed) {
         this.borrowed = borrowed;
@@ -94,7 +93,6 @@ public class book {
                 ", author='" + author + '\'' +
                 ", year=" + year +
                 ", genre='" + genre + '\'' +
-                ", UID=" + UID +
                 ", qty=" + qty + '\''+
                 ", borrowed=" + borrowed+
                 '}';

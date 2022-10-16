@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.io.*;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -13,6 +14,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
     protected String[] borrowedBooks; //[[Bookname],[bookname2]]
     protected int access;
     LocalDate[] dateBor;//[[dateBorrowed1], [dateBorrowed2]]
+    private static Scanner x;
 
     public Account_abstract(int UID, String name, String password, String[] borrowedBooks, int access, LocalDate[] dateBor) {
         this.UID = UID;
@@ -151,4 +153,62 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         }
         return -1;
     }
+}
+
+    
+    public String newAccount(String book){
+    	try {
+            File dir = new File(".");
+    		String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv";
+     
+    		FileWriter fstream = new FileWriter(loc, true);
+    		BufferedWriter out = new BufferedWriter(fstream);
+    		out.newLine();
+    		out.write("112235, sam, sam12345, 1, Red Riding Hood, NULL, 2022-08-23, NULL");
+    		out.close();
+            } catch (IOException e) {
+            	System.out.println("IOException");
+            }
+    	return "account has been added to the system";
+    }
+    
+    public static void updateCSV(ArrayList<accountDatabase> a) {
+		String tempFile = "temp.txt";
+    	String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv";
+    	File inputFile = new File(loc);
+    	File newFile = new File (loc);
+    	File oldFile = new File (tempFile);
+    	String uid="", uname="", pwd="", lvl="", book1="", book2="", date1="", date2="";
+
+        try {
+        	FileWriter fw = new FileWriter(tempFile, true);
+        	BufferedWriter bw = new BufferedWriter(fw);
+        	PrintWriter pw = new PrintWriter(bw);
+        	x = new Scanner(new File(loc));
+        	x.useDelimiter("[,\n]");
+        	
+        	while(x.hasNext()) {
+        		uid = x.next();
+        		uname = x.next();
+        		pwd = x.next();
+        		lvl = x.next();
+        		book1 = x.next();
+        		book2 = x.next();
+        		date1 = x.next();
+        		date2 = x.next();
+        		
+        		if(uid.equals(a.getUID()))
+        			pw.println(a.getUID()+","+a.getUname()+","+a.getPwd()+","+a.getLvl()+","+a.getBook1()+","+a.getBook2()+","+a.getDate1()+","+ a.getDate2());
+        		else
+        			pw.println(uid + "," + uname + "," + pwd + "," + lvl + "," + book1 + "," + book2 + "," + date1 + "," + date2);
+        	}
+        	x.close();
+            pw.flush();
+            pw.close();
+        } catch(IOException e) {
+        	System.out.println("Exception");
+        }
+        oldFile.delete();
+    }
+    
 }

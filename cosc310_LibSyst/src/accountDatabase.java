@@ -22,7 +22,17 @@ public class accountDatabase {
     private LocalDate date1;
     private LocalDate date2;
 
-
+    public accountDatabase(){
+        this.uid = 0;
+        this.uname = null;
+        this.pwd = null;
+        this.lvl = -1;
+        this.book1 = null;
+        this.book2 = null;
+        this.date1 = null;
+        this.date2 = null;
+    }
+    
     //constructor
     public accountDatabase(int uid, String uname, String pwd, int lvl, String book1, String book2, LocalDate date1, LocalDate date2){
         this.uid = uid;

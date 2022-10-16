@@ -17,6 +17,7 @@ public class main {
 
         }else{
             System.out.println("That is not a valid input, terminating");
+            return;
         }
         boolean useB = false;
         String username = "";
@@ -40,6 +41,7 @@ public class main {
             }else{
                 System.out.println("That is not a valid password. Please enter the right password: ");
             };
+
         }
         accountDatabase loggedIn = DBData.get(index);
         int accessLevel = loggedIn.getLvl();
@@ -51,8 +53,56 @@ public class main {
         }else{
             currentUser = new User(loggedIn.getUid(), loggedIn.getUname(), loggedIn.getPwd(),borrowedBooks, dateBor);
         }
-        System.out.println(currentUser.toString());
+        System.out.println("What would you like to do today " + username + "?");
+        showOptions(currentUser.getAccess());
+        System.out.println("");
+        int Choice = in.nextInt();
+        DoWhat(Choice, currentUser);
+        System.out.println("This is your current status: " + currentUser.toString());
+        System.out.println("Thank you for using our service");
     }
+
+    private static void DoWhat(int choice, Account_abstract currentUser) {
+        switch(choice) {
+            case 0:
+                return;
+            case 1:
+                bBook(currentUser);
+                break;
+            case 2:
+                rBook(currentUser);
+                break;
+        }
+        }
+    private static void bBook(Account_abstract currentUser){
+        Scanner in = new Scanner(System.in);
+        System.out.println("These are our selection of books: " ); //SELECTION OF ALL BOOKS AVAILABLE
+        System.out.println("What is the exact title of the book you want to borrow?");
+        String bookName = in.nextLine();
+        System.out.println(currentUser.borrowBook(bookName));
+    }
+    private static void rBook(Account_abstract currentUser) {
+        Scanner in = new Scanner(System.in);
+        System.out.println("These are your current books: " + Arrays.toString(currentUser.getBorrowedBooks()));
+        System.out.println("What is the exact title of the book you would like to return?");
+        String bookName = in.nextLine();
+        System.out.println(currentUser.returnBook(bookName));
+    }
+
+    private static void showOptions(int access) {
+        System.out.print("0. Terminate process (press 0) \n" +
+                "1. Borrow a book (press 1) \n" +
+                "2. Return a book (press 2) \n" +
+                "3. Search for a book/filter (press 3) \n"
+        );
+        if(access == 0){
+            System.out.println(
+                    "4. Add a book to the database (press 4) \n" +
+                            "5. Remove a book from the database (press 5)\n"
+            );
+        }
+    }
+
     public static int setIndex(ArrayList<accountDatabase> DBData, String username){
         int result = -1;
         for (int i = 0; i < DBData.size(); i++) {

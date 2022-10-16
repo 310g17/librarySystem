@@ -89,18 +89,18 @@ public class accountDatabase {
         }
         return accounts;
     }
-
+    //need to change bookdatabase values
     public void setBook(int index, String newBook) {
         for (int i = 0; i <index+1; i++) {
             if(i == index && book1.equals("NULL"))
                 this.book1 = newBook;
             else if (i == index && book2.equals("NULL"))
                 this.book2 = newBook;
-            else 
+            else
                 System.out.println("you already borrowed 2 books!");
         }
     }
-
+    //need to change book database values
     public void removeBook(int index, String oldbook) {
         for (int i = 0; i <index+1; i++) {
             if(i == index && book1.equals(oldbook))

@@ -188,20 +188,18 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         return -1;
     }
 
-    public String newAccount(String book){
+     public static String addAccount(int uid, String uname, String pwd, int lvl){
     	try {
             File dir = new File(".");
     		String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv";
-     
     		FileWriter fstream = new FileWriter(loc, true);
     		BufferedWriter out = new BufferedWriter(fstream);
-    		out.newLine();
-    		out.write("112235, sam, sam12345, 1, Red Riding Hood, NULL, 2022-08-23, NULL");
+    		out.write("\n"+uid+","+uname+","+pwd+","+lvl+",NULL,NULL,NULL,NULL");
     		out.close();
             } catch (IOException e) {
             	System.out.println("IOException");
             }
-    	return "account has been added to the system";
+    	return "Account has been added to the system";
     }
     
  public static void updateAccountDB(accountDatabase a) {
@@ -244,6 +242,20 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         } catch(IOException e) {
         	System.out.println("Exception");
         }
+    }
+
+    public static String addBook(int ISBN, String name, String author, String date, String genre, int uid, int qty) {
+    	try {
+            File dir = new File(".");
+    		String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/bookDBtest.csv";
+    		FileWriter fstream = new FileWriter(loc, true);
+    		BufferedWriter out = new BufferedWriter(fstream);
+    		out.write("\n"+ISBN+","+name+","+author+","+date+","+genre+","+uid+","+qty);
+    		out.close();
+            } catch (IOException e) {
+            	System.out.println("IOException");
+            }
+    	return "Book has been added to the system";
     }
     
     public static void updateBookDB(accountDatabase a) {

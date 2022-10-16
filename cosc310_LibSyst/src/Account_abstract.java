@@ -93,7 +93,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
     }
 
     public void setAccess(int access) {
-        access = access;
+        this.access = access;
     }
     protected double borrowDateTrack(String bookname) {
         int index = dateBookMatch(this.borrowedBooks, bookname);
@@ -204,43 +204,87 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
     	return "account has been added to the system";
     }
     
-//    public static void updateCSV(ArrayList<accountDatabase> a) {
-//		String tempFile = "temp.txt";
-//    	String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv";
-//    	File inputFile = new File(loc);
-//    	File newFile = new File (loc);
-//    	File oldFile = new File (tempFile);
-//    	String uid="", uname="", pwd="", lvl="", book1="", book2="", date1="", date2="";
-//
-//        try {
-//        	FileWriter fw = new FileWriter(tempFile, true);
-//        	BufferedWriter bw = new BufferedWriter(fw);
-//        	PrintWriter pw = new PrintWriter(bw);
-//        	x = new Scanner(new File(loc));
-//        	x.useDelimiter("[,\n]");
-//
-//        	while(x.hasNext()) {
-//        		uid = x.next();
-//        		uname = x.next();
-//        		pwd = x.next();
-//        		lvl = x.next();
-//        		book1 = x.next();
-//        		book2 = x.next();
-//        		date1 = x.next();
-//        		date2 = x.next();
-//
-//        		if(uid.equals(a.getUID()))
-//        			pw.println(a.getUID()+","+a.getUname()+","+a.getPwd()+","+a.getLvl()+","+a.getBook1()+","+a.getBook2()+","+a.getDate1()+","+ a.getDate2());
-//        		else
-//        			pw.println(uid + "," + uname + "," + pwd + "," + lvl + "," + book1 + "," + book2 + "," + date1 + "," + date2);
-//        	}
-//        	x.close();
-//            pw.flush();
-//            pw.close();
-//        } catch(IOException e) {
-//        	System.out.println("Exception");
-//        }
-//        oldFile.delete();
-//    }
+ public static void updateAccountDB(accountDatabase a) {
+		String tempFile = "temp.csv";
+    	String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv"; //change path to your own path
+    	File newFile = new File (tempFile);
+    	File oldFile = new File (loc);
+    	String uid="", uname="", pwd="", lvl="", book1="", book2="", date1="", date2="";
+
+        try {
+        	FileWriter fw = new FileWriter(tempFile, true);
+        	BufferedWriter bw = new BufferedWriter(fw);
+        	PrintWriter pw = new PrintWriter(bw);
+        	x = new Scanner(new File(loc));
+        	x.useDelimiter("[,\n]");
+        	
+        	while(x.hasNext()) {
+        		uid = x.next();
+        		uname = x.next();
+        		pwd = x.next();
+        		lvl = x.next();
+        		book1 = x.next();
+        		book2 = x.next();
+        		date1 = x.next();
+        		date2 = x.next();
+        		
+        		if(uid.equals(Integer.toString(a.getUid()))) {
+        			pw.println(a.getUid()+","+a.getUname()+","+a.getPwd()+","+a.getLvl()+","+a.getBook1()+","+a.getBook2()+","+a.getDate1()+","+ a.getDate2());
+        		}
+        		else {
+        			pw.println(uid + "," + uname + "," + pwd + "," + lvl + "," + book1 + "," + book2 + "," + date1 + "," + date2);
+        		}
+        	}
+        	x.close();
+            pw.flush();
+            pw.close();
+            oldFile.delete();
+            File dump = new File(loc);
+            newFile.renameTo(dump);
+        } catch(IOException e) {
+        	System.out.println("Exception");
+        }
+    }
     
+    public static void updateBookDB(accountDatabase a) {
+		String tempFile = "temp.csv";
+    	String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv"; //change path to your own path
+    	File newFile = new File (tempFile);
+    	File oldFile = new File (loc);
+    	String uid="", uname="", pwd="", lvl="", book1="", book2="", date1="", date2="";
+
+        try {
+        	FileWriter fw = new FileWriter(tempFile, true);
+        	BufferedWriter bw = new BufferedWriter(fw);
+        	PrintWriter pw = new PrintWriter(bw);
+        	x = new Scanner(new File(loc));
+        	x.useDelimiter("[,\n]");
+        	
+        	while(x.hasNext()) {
+        		uid = x.next();
+        		uname = x.next();
+        		pwd = x.next();
+        		lvl = x.next();
+        		book1 = x.next();
+        		book2 = x.next();
+        		date1 = x.next();
+        		date2 = x.next();
+        		
+        		if(uid.equals(Integer.toString(a.getUid()))) {
+        			pw.println(a.getUid()+","+a.getUname()+","+a.getPwd()+","+a.getLvl()+","+a.getBook1()+","+a.getBook2()+","+a.getDate1()+","+ a.getDate2());
+        		}
+        		else {
+        			pw.println(uid + "," + uname + "," + pwd + "," + lvl + "," + book1 + "," + book2 + "," + date1 + "," + date2);
+        		}
+        	}
+        	x.close();
+            pw.flush();
+            pw.close();
+            oldFile.delete();
+            File dump = new File(loc);
+            newFile.renameTo(dump);
+        } catch(IOException e) {
+        	System.out.println("Exception");
+        }
+    }
 }

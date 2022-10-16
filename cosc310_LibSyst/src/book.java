@@ -11,6 +11,7 @@ public class book {
     String genre;
     int qty;
     boolean borrowed;
+    int originalAmt;
 
 
 
@@ -22,9 +23,10 @@ public class book {
     	this.genre = null;
     	this.qty = 0;
     	this.borrowed = false;
+        this.originalAmt = 0;
     }
 
-    book(int ISBN,String name, String author, int year, String genre, int qty,boolean borrowed){
+    book(int ISBN,String name, String author, int year, String genre, int qty,boolean borrowed, int originalAmt){
         setAuthor(author);
         setGenre(genre);
         setISBN(ISBN);
@@ -32,9 +34,7 @@ public class book {
         setQty(qty);
         setYear(year);
         setBorrowed(borrowed);
-    }
-
-    public book(int isbn, String name, String author, int year, String genre, int uid, int qty, boolean borrowed) {
+        this.originalAmt = originalAmt;
     }
 
 
@@ -59,6 +59,8 @@ public class book {
     }
     public boolean getBorrowed() {
         return borrowed;
+    }public int getOriginalAmt(){
+        return this.originalAmt;
     }
 
     //setters
@@ -97,9 +99,9 @@ public class book {
                 ", genre='" + genre + '\'' +
                 ", qty=" + qty + '\''+
                 ", borrowed=" + borrowed+
+                ", originalAmt= "+this.originalAmt+
                 '}';
     }
 
-    public void setUID(int uid) {
-    }
+    
 }

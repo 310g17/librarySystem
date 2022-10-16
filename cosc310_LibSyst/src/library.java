@@ -19,24 +19,22 @@ public class library {
             String str = sc.nextLine(); // skipping the header
             String[] attributes;
 
-
-
             while(sc.hasNextLine()){
 
                 str=sc.nextLine();//gets the first row
                 attributes=str.split(",");
-                int isbn=Integer.parseInt(attributes[0]);
+                int isbn =Integer.parseInt(attributes[0]);
                 int year =Integer.parseInt(attributes[3]);
-                int uid =Integer.parseInt(attributes[5]);
-                int qty = Integer.parseInt(attributes[6]);
+                int qty = Integer.parseInt(attributes[5]);
                 boolean borrowed=false;
-                if (attributes[7].equals("T")){
+                int originalAmt = Integer.parseInt(attributes[7]);
+                if (attributes[6].equals("T")){
                     borrowed=true;}
-                else if (attributes[7].equals("F")){
+                else if (attributes[6].equals("F")){
                     borrowed=false;
                 }
-                //books.add(new book(isbn,attributes[1],attributes[2],year,attributes[4],uid,qty,borrowed));
-
+                
+                books.add(new book(isbn,attributes[1],attributes[2],year,attributes[4],qty,borrowed,originalAmt));
 
             }
 
@@ -46,8 +44,8 @@ public class library {
             ioe.printStackTrace();
         }
     }
-    public void addBook(int ISBN,String name, String author, int year, String genre, int UID, int qty, boolean borrowed,String path){
-        books.add(new book(ISBN,name,author,year,genre,UID,qty,borrowed));
+    public void addBook(int ISBN,String name, String author, int year, String genre, int qty, boolean borrowed,int originalAmt,String path){
+        books.add(new book(ISBN,name,author,year,genre,qty,borrowed,originalAmt));
         //adding to book to the csv file ....
 
     }
@@ -58,15 +56,13 @@ public class library {
     public void returnBook(int ISBN){
 
         books.get(findIndex(ISBN)).setBorrowed(false);
-        books.get(findIndex(ISBN)).setUID(0);
 
         //change csv ...
 
 
     }
-    public void borrowBook(int ISBN,int UID){
+    public void borrowBook(int ISBN){
         books.get(findIndex(ISBN)).setBorrowed(true);
-        books.get(findIndex(ISBN)).setUID(UID);
         //change csv ...
 
     }

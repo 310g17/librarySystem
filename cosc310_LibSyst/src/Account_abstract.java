@@ -287,4 +287,3 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         	System.out.println("Exception");
         }
     }
-}

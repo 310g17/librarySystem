@@ -63,18 +63,18 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         if (access == 0) {
             return "Library Admin{" +
                     "UID=" + UID +
-                    ", name='" + name + '\'' +
-                    ", borrowedBooks=" + Arrays.toString(borrowedBooks) +
-                    ", dateBorrowed=" + Arrays.toString(dateBor) +
-                    ", access=" + access +
+                    ", username='" + name + '\'' +
+                    ", Borrowed Book 1 = " + borrowedBooks[0] + " Due by: " + dateBor[0] +
+                    ", Borrowed Book 2 = " + borrowedBooks[1] + " Due by: " + dateBor[1] +
+                    ", access Level =" + "Library Admin" +
                     '}';
         } else {
             return "User{" +
                     "UID=" + UID +
-                    ", name='" + name + '\'' +
-                    ", borrowedBooks=" + Arrays.toString(borrowedBooks) +
-                    ", dateBorrowed=" + Arrays.toString(dateBor) +
-                    ", access=" + access +
+                    ", username='" + name + '\'' +
+                    ", Borrowed Book 1 = " + borrowedBooks[0] + " Due by: " + dateBor[0] +
+                    ", Borrowed Book 2 = " + borrowedBooks[1] + " Due by: " + dateBor[1] +
+                    ", access Level =" + "Library User" +
                     '}';
         }
     }
@@ -95,8 +95,21 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
     public void setAccess(int access) {
         this.access = access;
     }
+     protected int dateBookMatch(String[] borrowedBooks, String bookTitle) { //how to get the index of each book and dateBor
+        if(borrowedBooks[0] == null){return 0;}
+        for (int i = 0; i < borrowedBooks.length; i++) {
+            if (borrowedBooks[i].equals(bookTitle)) {
+                return i;
+            }
+        }
+        return -1;
+    }
     protected double borrowDateTrack(String bookname) {
-        int index = dateBookMatch(this.borrowedBooks, bookname);
+        int index;
+        if(this.borrowedBooks.length == 0 || this.borrowedBooks[0] == null){
+            index = 0;
+        }else{
+            index = dateBookMatch(this.borrowedBooks, bookname);}
         try {
             LocalDate dateBorrowed = dateBor[index]; //date borrowing book
             LocalDate date = LocalDate.now(); //current date
@@ -116,7 +129,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         String book2 = borrowedBooks[1];
         double date1 = borrowDateTrack(borrowedBooks[0]);
         double date2 = borrowDateTrack(borrowedBooks[1]);
-        if(borrowedBooks[0].equals(null) || borrowedBooks[0].equals("") && date1 <= 0 && date2 <= 0){
+        if(borrowedBooks[0] == null || borrowedBooks[0] == ("") && date1 <= 0 && date2 <= 0){
                   this.borrowedBooks[0] = bookName;
                   this.dateBor[0] = LocalDate.now();
                   return bookName + " has been borrowed.";
@@ -179,14 +192,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         return -1;
     }
 
-    protected int dateBookMatch(String[] borrowedBooks, String bookTitle) { //how to get the index of each book and dateBor
-        for (int i = 0; i < borrowedBooks.length; i++) {
-            if (borrowedBooks[i].equals(bookTitle)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+   
 
      public static String addAccount(int uid, String uname, String pwd, int lvl){
     	try {

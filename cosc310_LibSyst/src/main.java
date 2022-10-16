@@ -32,7 +32,7 @@ public class main {
                 System.out.println("That is not a valid username. Please enter a valid username: ");
             };
         }
-        System.out.print("please input you password: ");
+        System.out.print("please input your password: ");
         while (useB == false) {
             String password = in.nextLine();
             if (pMatching(DBData, password, index) == password){
@@ -54,25 +54,45 @@ public class main {
             currentUser = new User(loggedIn.getUid(), loggedIn.getUname(), loggedIn.getPwd(),borrowedBooks, dateBor);
         }
         System.out.println("What would you like to do today " + username + "?");
-        showOptions(currentUser.getAccess());
-        System.out.println("");
-        int Choice = in.nextInt();
-        DoWhat(Choice, currentUser);
-        System.out.println("This is your current status: " + currentUser.toString());
+        boolean looper = false;
+        while(looper == false){
+            showOptions(currentUser.getAccess());
+            System.out.println("");
+            int Choice = in.nextInt();
+            if(DoWhat(Choice, currentUser) == 0){
+                looper = true;
+            }
+        }
         System.out.println("Thank you for using our service");
     }
 
-    private static void DoWhat(int choice, Account_abstract currentUser) {
+    private static int DoWhat(int choice, Account_abstract currentUser) {
         switch(choice) {
             case 0:
-                return;
+                return 0;
             case 1:
                 bBook(currentUser);
+                System.out.println("This is your current status: " + currentUser.toString());
                 break;
             case 2:
                 rBook(currentUser);
+                System.out.println("This is your current status: " + currentUser.toString());
                 break;
+            case 3:
+                break;
+            case 4:
+                System.out.println(currentUser.toString());
+                break;
+            case 5:
+
+                break;
+            case 6:
+                break;
+            default:
+                System.out.println("incorrect input");
+
         }
+        return -1;
         }
     private static void bBook(Account_abstract currentUser){
         Scanner in = new Scanner(System.in);
@@ -93,12 +113,14 @@ public class main {
         System.out.print("0. Terminate process (press 0) \n" +
                 "1. Borrow a book (press 1) \n" +
                 "2. Return a book (press 2) \n" +
-                "3. Search for a book/filter (press 3) \n"
+                "3. Search for a book/filter (press 3) \n" +
+                "4. Check your borrowing status (press 4) \n"
+
         );
         if(access == 0){
             System.out.println(
-                    "4. Add a book to the database (press 4) \n" +
-                            "5. Remove a book from the database (press 5)\n"
+                    "4. Add a book to the database (press 5) \n" +
+                            "5. Remove a book from the database (press 6)\n"
             );
         }
     }

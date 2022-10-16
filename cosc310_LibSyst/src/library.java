@@ -35,7 +35,7 @@ public class library {
                 else if (attributes[7].equals("F")){
                     borrowed=false;
                 }
-                books.add(new book(isbn,attributes[1],attributes[2],year,attributes[4],uid,qty,borrowed));
+                //books.add(new book(isbn,attributes[1],attributes[2],year,attributes[4],uid,qty,borrowed));
 
 
             }

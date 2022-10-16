@@ -34,6 +34,8 @@ public class book {
         setBorrowed(borrowed);
     }
 
+    public book(int isbn, String name, String author, int year, String genre, int uid, int qty, boolean borrowed) {
+    }
 
 
     //getters
@@ -96,5 +98,8 @@ public class book {
                 ", qty=" + qty + '\''+
                 ", borrowed=" + borrowed+
                 '}';
+    }
+
+    public void setUID(int uid) {
     }
 }

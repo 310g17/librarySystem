@@ -5,9 +5,23 @@ Our team’s project is focused on the creation of a library system that primari
 ![alt text](https://github.com/310g17/librarySystem/blob/main/rscforReadme/Class%20Organization%20Structure.jpg)<br/>
 
 Shown above is how our classes are organized in the library system. The methods used for each class is as follows: <br/>
-<H3>mainMethod: main.java </H3><br/>
-login -  <br/>
+<H3>Main Method: main.java </H3><br/>
+Login function is implemented in the main method. It checks both the username and password inputted by users directly with current database information. If successful allows the user to login, if incorrect it prompts users to try again.  <br/>
 
+showOptions(int access). Method to show options (0 to terminate , 1 to borrow books, 2 to return, 3 check status, 4 add books, 5 remove books).
+
+DoWhat(int choice, Account_abstract currentUser, library l1). Method to prompt users what to do. Asks users to input a given set of integers to choose from. Upon choosing a function and number it sends users into the specific function (0 to terminate , 1 to borrow books, 2 to return, 3 check status, 4 add books, 5 remove books). <br/>
+
+bBook(Account_abstract currentUser, library l1). Method to borrow books. Shows all available books and prompts users to choose. <br/>
+
+rBook(Account_abstract currentUser, library l1). Method to return books, upon returning a book calls the abstract's return book method to show all late fees associated. <br/>
+
+setIndex(ArrayList<accountDatabase> DBData, String username). Method associated with the login. Checks username index in array of login information.<br/>
+
+uMatching(ArrayList<accountDatabase> DBData, String username). Method associated with login. Checks username. <br/>
+  
+pMatching(ArrayList<accountDatabase> DBData, String password, int index). Method associated with login. Checks password. <br/>
+  
 <H3> User abstract: Account_abstract.java </H3><br/>
 Account_abstract(int UID, String name, String password, String[] borrowedBooks, int access, LocalDate[] dateBor); A constructor that will be used by the Admin subclass and user subclass. <br/>
 

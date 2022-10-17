@@ -6,11 +6,26 @@ Our team’s project is focused on the creation of a library system that primari
 
 Shown above is how our classes are organized in the library system. The methods used for each class is as follows: <br/>
 mainMethod: <br/>
-*add something here** <br/>
+login -  <br/>
 
 User abstract: <br/>
-login(); <br/>
-etc etc
+Account_abstract(int UID, String name, String password, String[] borrowedBooks, int access, LocalDate[] dateBor); A constructor that will be used by the Admin subclass and user subclass. <br/>
+
+General getters and setters for the values. <br/>
+
+borrowBook(String bookName). This method will show users the available books and lets users borrow any available books under the right conditions. Users that have 2 borrowed books or an overdue book cannot borrow another book. References a helper method (borrowDateTrack [to keep track of the days borrowed and overall fees], this method also references another method dateBookMatch that helps find the proper book index). <br/>
+
+returnBook(String bookName). This method will allow users to return books based on the book title. It prevents false returns (when they want to return books that they don't have). Returning books will free up a space in their available book slots. It will also charge users who have overdue books by showing a fee that is calculated by multiplying the days overdue by 2. This method references two helper methods (payLateFees and bookReturn), resepctively calculating the late fees and tracking dates (which calls dateBookMatch and dateTracking). <br/>
+
+addAccount(int uid, String uname, String pwd, int lvl). This method allows for the creation of new accounts by adding it to the database. <br/>
+
+updateAccountDB(accountDatabase a). This method allows for the changing of specific aspects of the accounts in the database. <br/>
+
+addBook(int ISBN, String name, String author, String date, String genre, int qty, boolean borrowed). This method allows for the addition of new books to the database. Currently only allowed by library admins. <br/>
+
+removeBook(int ISBN). This method is used to remove books. <br/>
+
+updateBookDB(book b). This method is used to update specific aspects of the book. <br/>
 
 Admin class: Subclass of User <br/>
 

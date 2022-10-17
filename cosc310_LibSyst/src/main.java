@@ -86,18 +86,15 @@ public class main {
                 System.out.println("This is your current status: " + currentUser.toString());
                 break;
             case 3:
-                
-                break;
-            case 4:
                 System.out.println(currentUser.toString());
                 break;
-            case 5:
-            //add Book
-
+            case 4:
+            	book n = l1.books.get(l1.books.size());
+            	Account_abstract.addBook(n.getISBN(), n.getName(), n.getAuthor(), n.getYear(), n.getGenre(), n.getQty(), n.getBorrowed(), n.getOriginalAmt());
                 break;
-            case 6:
-            //remove book
-
+            case 5:
+            	book o = l1.books.get(l1.books.size());
+            	Account_abstract.removeAccount(o.getISBN());
                 break;
             default:
                 System.out.println("incorrect input");
@@ -152,14 +149,13 @@ public class main {
         System.out.print("0. Terminate process to save all progress (press 0) \n" +
                 "1. Borrow a book (press 1) \n" +
                 "2. Return a book (press 2) \n" +
-                "3. Search for a book/filter (press 3) \n" +
-                "4. Check your borrowing status (press 4) \n"
+                "3. Check your borrowing status (press 3) \n"
 
         );
         if(access == 0){
             System.out.println(
-                    "5. Add a book to the database (press 5) \n" +
-                            "6. Remove a book from the database (press 6)\n"
+                    "4. Add a book to the database (press 4) \n" +
+                            "5. Remove a book from the database (press 5)\n"
             );
         }
     }

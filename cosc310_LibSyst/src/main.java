@@ -13,7 +13,9 @@ public class main {
         String decision = in.nextLine();
         if(decision.equals("create")){
             //add create an account method
-
+            //CREATE AN ACCOUNT 
+            //ADD TO CSV
+            //TERMINATE USING RETURN;
             return;
         }else if(decision.equals("login")){
 
@@ -91,9 +93,11 @@ public class main {
                 break;
             case 5:
             //add Book
+
                 break;
             case 6:
             //remove book
+
                 break;
             default:
                 System.out.println("incorrect input");

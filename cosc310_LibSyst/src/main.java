@@ -113,36 +113,93 @@ public class main {
         System.out.println("What is the exact title of the book you want to borrow?");
         String bookName = in.nextLine();
         //reduce the number of qty available
+        accountDatabase a = new accountDatabase();
+        book b = new book();
         for(int i = 0 ; i < l1.books.size(); i++){
             if(l1.books.get(i).getName().equals(bookName)){
-               int z = l1.books.get(i).getQty();
+               if(l1.books.get(i).getQty() > 0) {
+            	int z = l1.books.get(i).getQty();
                l1.books.get(i).setQty(z-1);
                l1.books.get(i).setBorrowed(true);
+               b.setISBN(l1.books.get(i).getISBN());
+               b.setName(l1.books.get(i).getName());
+               b.setAuthor(l1.books.get(i).getAuthor());
+               b.setYear(l1.books.get(i).getYear());
+               b.setGenre(l1.books.get(i).getGenre());
+               b.setQty(l1.books.get(i).getQty());
+               b.setBorrowed(l1.books.get(i).getBorrowed());
+               b.setOriginalAmount(l1.books.get(i).getOriginalAmt());
+               
+               a.setUid(currentUser.getUID());
+               a.setUname(currentUser.getName());
+               a.setPwd(currentUser.getPassword());
+               a.setLvl(currentUser.getAccess());
+               a.setBook1(currentUser.getBorrowedBooks()[0]);
+               a.setBook2(currentUser.getBorrowedBooks()[1]);
                break;
+               }
+               else {
+            	   System.out.println("We are out of stock for this book");
+               }
             }
         }
         System.out.println(currentUser.borrowBook(bookName));
+        Account_abstract.updateBookDB(b);
+        Account_abstract.updateAccountDB(a);
     }
     private static void rBook(Account_abstract currentUser, library l1) {
         Scanner in = new Scanner(System.in);
         System.out.println("These are your current books: " + Arrays.toString(currentUser.getBorrowedBooks()));
         System.out.println("What is the exact title of the book you would like to return?");
         String bookName = in.nextLine();
+        accountDatabase a = new accountDatabase();
+        book b = new book();
         for(int i = 0 ; i < l1.books.size(); i++){
             if(l1.books.get(i).getName().equals(bookName)){
                int z = l1.books.get(i).getQty();
                l1.books.get(i).setQty(z+1);
                if(l1.books.get(i).getQty() < l1.books.get(i).getOriginalAmt()){
                 l1.books.get(i).setBorrowed(true);
+                b.setISBN(l1.books.get(i).getISBN());
+                b.setName(l1.books.get(i).getName());
+                b.setAuthor(l1.books.get(i).getAuthor());
+                b.setYear(l1.books.get(i).getYear());
+                b.setGenre(l1.books.get(i).getGenre());
+                b.setQty(l1.books.get(i).getQty());
+                b.setBorrowed(l1.books.get(i).getBorrowed());
+                b.setOriginalAmount(l1.books.get(i).getOriginalAmt());
+                
+                a.setUid(currentUser.getUID());
+                a.setUname(currentUser.getName());
+                a.setPwd(currentUser.getPassword());
+                a.setLvl(currentUser.getAccess());
+                a.setBook1(currentUser.getBorrowedBooks()[0]);
+                a.setBook2(currentUser.getBorrowedBooks()[1]);
                }else{
                 l1.books.get(i).setBorrowed(false);
+                b.setISBN(l1.books.get(i).getISBN());
+                b.setName(l1.books.get(i).getName());
+                b.setAuthor(l1.books.get(i).getAuthor());
+                b.setYear(l1.books.get(i).getYear());
+                b.setGenre(l1.books.get(i).getGenre());
+                b.setQty(l1.books.get(i).getQty());
+                b.setBorrowed(l1.books.get(i).getBorrowed());
+                b.setOriginalAmount(l1.books.get(i).getOriginalAmt());
+                
+                a.setUid(currentUser.getUID());
+                a.setUname(currentUser.getName());
+                a.setPwd(currentUser.getPassword());
+                a.setLvl(currentUser.getAccess());
+                a.setBook1(currentUser.getBorrowedBooks()[0]);
+                a.setBook2(currentUser.getBorrowedBooks()[1]);
                }
         }
                break;
             }
         System.out.println(currentUser.returnBook(bookName));
+        Account_abstract.updateBookDB(b);
+        Account_abstract.updateAccountDB(a);
         }
-        
     
 
     private static void showOptions(int access) {

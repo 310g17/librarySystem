@@ -42,9 +42,12 @@ removeBook(int ISBN). This method is used to remove books. <br/>
 updateBookDB(book b). This method is used to update specific aspects of the book. <br/>
 
 <H3>Admin class: Admin.java - Subclass of User</H3> <br/>
+Admin(int UID, String name, String password, String[] borrowedBooks, LocalDate[] dateBor). Method to create an Admin object. Calls super of the account abstract. <br/>
+addBook(String book). Method to add a book, accessible by the library admin class for now. <br/>
+removeBook(String book). Method to remove books, accessible by the library admin class for now. </br>
 
-<H3>User Class: User.java - Subclass of User </H3><br/>
-
+ <H3>User Class: User.java - Subclass of User </H3><br/>
+User(int UID, String name, String password, String[] borrowedBooks, LocalDate[] dateBor). Method to create a User boject. Calls super of the account abstract. <br/>
 
 <H2>Our Work Breakdown Structure</H2>
 Highlighting our team's distribution of responsibilities, we've created a work breakdown structure (WBS) to further help with the project management.<br/>

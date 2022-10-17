@@ -17,9 +17,11 @@ Admin class: Subclass of User <br/>
 User Class: Subclass of User <br/>
 
 
-##<H2>Our Work Breakdown Structure</H2>
+<H2>Our Work Breakdown Structure</H2>
 Highlighting our team's distribution of responsibilities, we've created a work breakdown structure (WBS) to further help with the project management.<br/>
-
-## <H2>Gantt Chart and Scheduling Our Project</H2>
+![alt text](https://github.com/310g17/librarySystem/blob/main/rscforReadme/WBS.png)
+Our Work Breakdown Structure highlights the distribution of responsibilities and the general structure of how our code is going to function. The account classes and abstract was coded by Adrian and Kevin. They wrote the general structure of how accounts are used in the library system as well as the methods associated with it. Furthermore, Adrian and Kevin created the main method. Henry and Mete were in charge of the databases and the database connection we were going to have. The database classes for books and accounts were created to both read and write the csv file that acted as our on file database system. <br/>
+<H2>Gantt Chart and Scheduling Our Project</H2>
 For our project listed below is a rough estimation for the development of this project. This Gantt chart would hopefully help in estimating and guiding our development.
 ![alt text](https://github.com/310g17/librarySystem/blob/main/rscforReadme/GanntChart_Final.jpeg)
+Following our development cycle phases, we’ve created an outline of what we are going to do using a Gantt chart. Project will be separated into 4 phases as initially described, however, here we can highlight the dependencies of the project. For one our database needs to be designed and finished before we move on to the development of individual classes/objects. Furthermore, our user interface is also highly dependent on the completion of our database and classes. However, as we have designed a Gantt chart this does not mean we have to follow the structure exactly. It exists as a guide, we are still under an agile development SDLC. We will still interleave our development but the Gantt chart exists to act as a rough visualization of our overall development. As for the timing, we believe our initial build of the software would not take too long. It can easily be accomplished within the time frame of about 2-3 weeks. Therefore, our development would take a short amount of time. However, we believe that future iterations would have to improve on our overall code. Since that is the case, we will spend the most amount of time in our software evolution phase as we want to further develop our software. <br/>

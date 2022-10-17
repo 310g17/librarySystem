@@ -51,6 +51,12 @@ removeBook(String book). Method to remove books, accessible by the library admin
 
  <H3>User Class: User.java - Subclass of User </H3><br/>
 User(int UID, String name, String password, String[] borrowedBooks, LocalDate[] dateBor). Method to create a User boject. Calls super of the account abstract. <br/>
+  
+  <H3> Account Database:  accountDatabase.java</H3><br/>
+  This code consist of 1 empty constructor that will initialize default value (0,-1 or null) to the appropriate attributes and a constructor that takes all attributes as it's parameter. <br/>
+  readDB(String path) method will take path as it's parameter and will read csv file that contains dummy database and read it line by line. Each value will be split using (,) delimeter and store it in an arraylist which later on are used to create objects based on the value/attributes. <br/>
+  setBook(int index, String newBook) will take an index of the user that are stored in the arraylist of objects and set either book1 or book2 attribute to the new value. **Note: Because our csv file is still small, we could still use an index to find the object. However, we will change the method in the future to get the index by itself (using getter)** <br/>
+  removeBook(int index, String oldbook) same as the ssetBook(int index, String newBook) method, it will still take an index and string to remove book from user. This method will compare either book1 or book2 of the user and remove it. **Note: Because our csv file is still small, we could still use an index to find the object. However, we will change the method in the future to get the index by itself (using getter)** <br/>
 
 <H2>Our Work Breakdown Structure</H2>
 Highlighting our team's distribution of responsibilities, we've created a work breakdown structure (WBS) to further help with the project management.<br/>

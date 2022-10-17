@@ -90,9 +90,10 @@ public class main {
                 System.out.println(currentUser.toString());
                 break;
             case 5:
-    
+            //add Book
                 break;
             case 6:
+            //remove book
                 break;
             default:
                 System.out.println("incorrect input");

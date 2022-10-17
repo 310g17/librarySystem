@@ -5,10 +5,10 @@ Our team’s project is focused on the creation of a library system that primari
 ![alt text](https://github.com/310g17/librarySystem/blob/main/rscforReadme/Class%20Organization%20Structure.jpg)<br/>
 
 Shown above is how our classes are organized in the library system. The methods used for each class is as follows: <br/>
-mainMethod: <br/>
+<H3>mainMethod: main.java </H3><br/>
 login -  <br/>
 
-User abstract: <br/>
+<H3> User abstract: Account_abstract.java </H3><br/>
 Account_abstract(int UID, String name, String password, String[] borrowedBooks, int access, LocalDate[] dateBor); A constructor that will be used by the Admin subclass and user subclass. <br/>
 
 General getters and setters for the values. <br/>
@@ -27,9 +27,9 @@ removeBook(int ISBN). This method is used to remove books. <br/>
 
 updateBookDB(book b). This method is used to update specific aspects of the book. <br/>
 
-Admin class: Subclass of User <br/>
+<H3>Admin class: Admin.java - Subclass of User</H3> <br/>
 
-User Class: Subclass of User <br/>
+<H3>User Class: User.java - Subclass of User </H3><br/>
 
 
 <H2>Our Work Breakdown Structure</H2>

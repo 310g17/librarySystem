@@ -207,6 +207,48 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
             }
     	return "Account has been added to the system";
     }
+
+     public static void removeAccount(int UID) {
+    	String tempFile = "temp.csv";
+    	String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv"; //change path to your own path
+    	File newFile = new File (tempFile);
+    	File oldFile = new File (loc);
+    	String uid="", uname="", pwd="", lvl="", book1="", book2="", date1="", date2="";
+
+        try {
+        	FileWriter fw = new FileWriter(tempFile, true);
+        	BufferedWriter bw = new BufferedWriter(fw);
+        	PrintWriter pw = new PrintWriter(bw);
+        	x = new Scanner(new File(loc));
+        	x.useDelimiter("[,\n]");
+        	
+        	while(x.hasNext()) {
+        		uid = x.next();
+        		uname = x.next();
+        		pwd = x.next();
+        		lvl = x.next();
+        		book1 = x.next();
+        		book2 = x.next();
+        		date1 = x.next();
+        		date2 = x.next();
+        		
+        		if(uid.equals(Integer.toString(UID))) {
+        			System.out.println("removed account successfully");
+        		}
+        		else {
+        			pw.println(uid + "," + uname + "," + pwd + "," + lvl + "," + book1 + "," + book2 + "," + date1 + "," + date2);
+        		}
+        	}
+        	x.close();
+            pw.flush();
+            pw.close();
+            oldFile.delete();
+            File dump = new File(loc);
+            newFile.renameTo(dump);
+        } catch(IOException e) {
+        	System.out.println("Exception");
+        }
+    }
     
     public static void updateAccountDB(accountDatabase a) {
 		String tempFile = "temp.csv";
@@ -292,7 +334,9 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         		qty = x.next();
         		bor = x.next();
         		
-        		if(isbn.equals(Integer.toString(ISBN))) {}
+        		if(isbn.equals(Integer.toString(ISBN))) {
+                    System.out.println("removed book successfully");
+                }
         		else {
         			pw.println(isbn + "," + name + "," + author + "," + date + "," + genre + "," + qty + "," + bor);
         		}

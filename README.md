@@ -23,6 +23,7 @@ uMatching(ArrayList<accountDatabase> DBData, String username). Method associated
 pMatching(ArrayList<accountDatabase> DBData, String password, int index). Method associated with login. Checks password. <br/>
   
 <H3> User abstract: Account_abstract.java </H3><br/>
+ The user abstract is the blue print for both our account types, the user account and library administrator account. <br/>
 Account_abstract(int UID, String name, String password, String[] borrowedBooks, int access, LocalDate[] dateBor); A constructor that will be used by the Admin subclass and user subclass. <br/>
 
 General getters and setters for the values. <br/>

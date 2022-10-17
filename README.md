@@ -6,6 +6,8 @@ Our team’s project is focused on the creation of a library system that primari
 
 Shown above is how our classes are organized in the library system. The methods used for each class is as follows: <br/>
 <H3>Main Method: main.java </H3><br/>
+The main method is the method that users will interact with. IMPORTANT: FILEPATHS MUST BE REINPUTTED TO MATCH USER DIRECTORIES, THERE ARE TWO FILES: bookDB_new.csv and userDB - userDB w String.csv </br>
+
 Login function is implemented in the main method. It checks both the username and password inputted by users directly with current database information. If successful allows the user to login, if incorrect it prompts users to try again.  <br/>
 
 showOptions(int access). Method to show options (0 to terminate , 1 to borrow books, 2 to return, 3 check status, 4 add books, 5 remove books).

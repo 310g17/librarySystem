@@ -193,8 +193,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
     }
 
    
-
-     public static String addAccount(int uid, String uname, String pwd, int lvl){
+public static String addAccount(int uid, String uname, String pwd, int lvl){
     	try {
             File dir = new File(".");
     		String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv";
@@ -206,6 +205,53 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
             	System.out.println("IOException");
             }
     	return "Account has been added to the system";
+    }
+    
+    public static void removeAccount(int UID) {
+    	String tempFile = "temp.csv";
+    	String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv"; //change path to your own path
+    	File newFile = new File (tempFile);
+    	File oldFile = new File (loc);
+    	String uid="", uname="", pwd="", lvl="", book1="", book2="", date1="", date2="";
+
+        try {
+        	FileWriter fw = new FileWriter(tempFile, true);
+        	BufferedWriter bw = new BufferedWriter(fw);
+        	PrintWriter pw = new PrintWriter(bw);
+        	x = new Scanner(new File(loc));
+        	x.useDelimiter("[,\n]");
+        	boolean rmv = false;
+        	while(x.hasNext()) {
+        		uid = x.next();
+        		uname = x.next();
+        		pwd = x.next();
+        		lvl = x.next();
+        		book1 = x.next();
+        		book2 = x.next();
+        		date1 = x.next();
+        		date2 = x.next();
+        		
+        		if(uid.equals(Integer.toString(UID))) {
+        			System.out.println("removed account successfully");
+        			rmv = true;
+        		}
+        		else {
+        			pw.println(uid + "," + uname + "," + pwd + "," + lvl + "," + book1 + "," + book2 + "," + date1 + "," + date2);
+        		}
+        	}
+        	
+        	if(rmv == false)
+        		System.out.println("Remove account unsuccesful");
+        	
+        	x.close();
+            pw.flush();
+            pw.close();
+            oldFile.delete();
+            File dump = new File(loc);
+            newFile.renameTo(dump);
+        } catch(IOException e) {
+        	System.out.println("Exception");
+        }
     }
     
     public static void updateAccountDB(accountDatabase a) {
@@ -250,18 +296,18 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         }
     }
     
-    public static String addBook(int ISBN, String name, String author, String date, String genre, int qty, boolean borrowed) {
+    public static String addBook(int ISBN, String name, String author, int date, String genre, int qty, boolean borrowed, int originalAmt) {
     	try {
             String bor;
     		File dir = new File(".");
     		String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/bookDB.csv";
     		FileWriter fstream = new FileWriter(loc, true);
     		BufferedWriter out = new BufferedWriter(fstream);
-    		if(borrowed==false)
+    		if(borrowed == false)
     			bor = "F";
     		else
     			bor = "T";
-    		out.write("\n"+ISBN+","+name+","+author+","+date+","+genre+","+qty+","+bor);
+    		out.write("\n"+ISBN+","+name+","+author+","+date+","+genre+","+qty+","+bor+","+originalAmt);
     		out.close();
             } catch (IOException e) {
             	System.out.println("IOException");
@@ -274,7 +320,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
     	String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/bookDB.csv"; //change path to your own path
     	File newFile = new File (tempFile);
     	File oldFile = new File (loc);
-    	String isbn="", name="", author="", date="", genre="", qty="", bor="";
+    	String isbn="", name="", author="", date="", genre="", qty="", borrowed="", originalAmt="";
 
         try {
         	FileWriter fw = new FileWriter(tempFile, true);
@@ -282,7 +328,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         	PrintWriter pw = new PrintWriter(bw);
         	x = new Scanner(new File(loc));
         	x.useDelimiter("[,\n]");
-        	
+        	boolean rmv = false;
         	while(x.hasNext()) {
         		isbn = x.next();
         		name = x.next();
@@ -290,12 +336,19 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         		date = x.next();
         		genre = x.next();
         		qty = x.next();
-        		bor = x.next();
+        		borrowed = x.next();
+        		originalAmt = x.next();
         		
-        		if(isbn.equals(Integer.toString(ISBN))) {}
-        		else {
-        			pw.println(isbn + "," + name + "," + author + "," + date + "," + genre + "," + qty + "," + bor);
+        		if(isbn.equals(Integer.toString(ISBN))) {
+        			System.out.println("Removed book successfully");
+        			rmv = true;
         		}
+        		else {
+        			pw.println(isbn+","+name+","+author+","+date+","+genre+","+qty+","+borrowed+","+originalAmt);
+        		}
+        	}
+        	if(rmv == false) {
+        		System.out.println("Remove book unsuccesful");
         	}
         	x.close();
             pw.flush();
@@ -313,7 +366,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
     	String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/bookDB.csv"; //change path to your own path
     	File newFile = new File (tempFile);
     	File oldFile = new File (loc);
-    	String isbn="", name="", author="", date="", genre="", qty="", borrowed="", Sbor="";
+    	String isbn="", name="", author="", date="", genre="", qty="", borrowed="", originalAmt="", Sbor="";
 
         try {
         	FileWriter fw = new FileWriter(tempFile, true);
@@ -335,12 +388,13 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         		genre = x.next();
         		qty = x.next();
         		borrowed = x.next();
+        		originalAmt = x.next();
         		
         		if(isbn.equals(Integer.toString(b.getISBN()))) {
-        			pw.println(b.getISBN()+","+b.getName()+","+b.getAuthor()+","+b.getYear()+","+b.getGenre()+","+b.getQty()+","+Sbor);
+        			pw.println(b.getISBN()+","+b.getName()+","+b.getAuthor()+","+b.getYear()+","+b.getGenre()+","+b.getQty()+","+Sbor+","+b.getOriginalAmt());
         		}
         		else {
-        			pw.println(isbn + "," + name + "," + author + "," + date + "," + genre +"," + qty + "," + borrowed);
+        			pw.println(isbn+","+name+","+author+","+date+","+genre+","+qty+","+borrowed+","+originalAmt);
         		}
         	}
         	x.close();

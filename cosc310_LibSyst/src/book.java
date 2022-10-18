@@ -86,6 +86,10 @@ public class book {
     public void setBorrowed(boolean borrowed) {
         this.borrowed = borrowed;
     }
+
+     public void setOriginalAmount(int originalAmt) {
+    	this.originalAmt = originalAmt;
+    }
     //methods
 
 

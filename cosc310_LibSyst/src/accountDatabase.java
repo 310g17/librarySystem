@@ -194,6 +194,12 @@ public class accountDatabase {
 
 
 
+    public void setBook1(String book1) {
+        this.book1 = book1;
+    }
+
+
+
 
     public String getBook2() {
         return book2;

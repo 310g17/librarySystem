@@ -112,6 +112,16 @@ public class main {
         }
         System.out.println("What is the exact title of the book you want to borrow?");
         String bookName = in.nextLine();
+        boolean isitabook = false;
+        for(int i = 0 ; i < l1.books.size(); i++){
+            if(l1.books.get(i).getName().equals(bookName)){
+                isitabook = true;
+                break;}
+            }
+        if (isitabook == false){
+            System.out.println("This is not a book in our database");
+            return;
+        }
         //reduce the number of qty available
         accountDatabase a = new accountDatabase();
         book b = new book();
@@ -175,6 +185,7 @@ public class main {
                 a.setLvl(currentUser.getAccess());
                 a.setBook1(currentUser.getBorrowedBooks()[0]);
                 a.setBook2(currentUser.getBorrowedBooks()[1]);
+                
                }else{
                 l1.books.get(i).setBorrowed(false);
                 b.setISBN(l1.books.get(i).getISBN());

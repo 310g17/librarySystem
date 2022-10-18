@@ -4,6 +4,8 @@ Our team’s project is focused on the creation of a library system that primari
 
 First iteration has backlogged filtering due to file based database system constraints and time constraints. Filtering will be implemented in future iterations of the project. <br/>
 
+Upon loading code onto device, filepaths in the main and Account_abstract class must be changed to appropriate filepaths. More instructions are on the code as a comment.
+
 <H2>Class Organization</H2>
 
 ![alt text](https://github.com/310g17/librarySystem/blob/main/rscforReadme/Class%20Organization%20Structure.jpg)<br/>

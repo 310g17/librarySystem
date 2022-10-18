@@ -62,10 +62,23 @@ User(int UID, String name, String password, String[] borrowedBooks, LocalDate[] 
   <br/> setBook(int index, String newBook) will take an index of the user that are stored in the arraylist of objects and set either book1 or book2 attribute to the new value. **Note: Because our csv file is still small, we could still use an index to find the object. However, we will change the method in the future to get the index by itself (using getter)** <br/>
   <br/>removeBook(int index, String oldbook) same as the ssetBook(int index, String newBook) method, it will still take an index and string to remove book from user. This method will compare either book1 or book2 of the user and remove it. **Note: Because our csv file is still small, we could still use an index to find the object. However, we will change the method in the future to get the index by itself (using getter)** <br/>
 
+ <br/><H3>library Class: library.java </H3><br/>
+Library class is where the information of all the books stored.<br/>
+<br/>addDB(String path) This method will take the file path as a string and stores the information in the file as book classes in an arraylist called books. It reads the file line by line and splits the values to the strings and changes their data types to create a book class. <br/>
+<br/>addBook(int ISBN,String name, String author, int year, String genre, int qty, boolean borrowed,int originalAmt,String path) This method adds a book to the books arraylist<br/>
+<br/>removeBook(int ISBN) This method finds the book by its ISBN number and removes it from the books arraylist.<br/>
+<br/>returnBook(int ISBN) This method finds the book by its ISBN number and changes its borrowed value to false.<br/>
+<br/>borrowBook(int ISBN) This method finds the book by its ISBN number and changes its borrowed value to true.<br/>
+<br/>findIndex(int ISBN) This method finds the index of the book in the arraylist by its ISBN number.<br/>
+
+<H3>book Class: book.java </H3><br/>
+This class is the blueprint for the books that stored in the library. It has one empty constructer and one with all the parameters.<br/>
+<br/> book(int ISBN,String name, String author, int year, String genre, int qty,boolean borrowed, int originalAmt) constructer with the parameters.<br/>
+
 <H2>Our Work Breakdown Structure</H2>
 Highlighting our team's distribution of responsibilities, we've created a work breakdown structure (WBS) to further help with the project management.<br/>
 
-![alt text](https://github.com/310g17/librarySystem/blob/main/rscforReadme/WBS.png) <br/>
+<br/>![alt text](https://github.com/310g17/librarySystem/blob/main/rscforReadme/WBS.png) <br/>
 
 Our Work Breakdown Structure highlights the distribution of responsibilities and the general structure of how our code is going to function. The account classes and abstract was coded by Adrian and Kevin. They wrote the general structure of how accounts are used in the library system as well as the methods associated with it. Furthermore, Adrian and Kevin created the main method. Henry and Mete were in charge of the databases and the database connection we were going to have. The database classes for books and accounts were created to both read and write the csv file that acted as our on file database system. <br/>
 <H2>Gantt Chart and Scheduling Our Project</H2>

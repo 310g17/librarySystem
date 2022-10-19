@@ -24,7 +24,6 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         this.access = access;
         this.dateBor = dateBor;
     }
-
     public Account_abstract() {
         this.UID = -1;
         this.name = null;
@@ -60,25 +59,27 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
 
     @Override
     public String toString() {
-        if (access == 0) {
-            return "Library Admin{" +
-                    "UID=" + UID +
-                    ", username='" + name + '\'' +
-                    ", Borrowed Book 1 = " + borrowedBooks[0] + " Borrowed on: " + dateBor[0] +
-                    ", Borrowed Book 2 = " + borrowedBooks[1] + " Borrowed on: " + dateBor[1] +
-                    ", access Level =" + "Library Admin" +
-                    '}';
-        } else {
-            return "User{" +
-                    "UID=" + UID +
-                    ", username='" + name + '\'' +
-                    ", Borrowed Book 1 = " + borrowedBooks[0] + " Borrowed on: " + dateBor[0] +
-                    ", Borrowed Book 2 = " + borrowedBooks[1] + " Borrowed on: " + dateBor[1] +
-                    ", access Level =" + "Library User" +
-                    '}';
-        }
+       if(access == 0){
+        return "Library Admin{" +
+                "UID=" + UID +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", borrowedBooks=" + Arrays.toString(borrowedBooks) +
+                ", dateBorrowed=" + Arrays.toString(dateBor) +
+                ", access=" + access +
+                '}';
+       }else{
+           return "User{" +
+                   "UID=" + UID +
+                   ", name='" + name + '\'' +
+                   ", password='" + password + '\'' +
+                   ", borrowedBooks=" + Arrays.toString(borrowedBooks) +
+                   ", dateBorrowed=" + Arrays.toString(dateBor) +
+                   ", access=" + access +
+                   '}';
+       }
     }
-
+    
 
     public String[] getBorrowedBooks() {
         return borrowedBooks;
@@ -86,6 +87,10 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
 
     public void setBorrowedBooks(String[] borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
+    }
+    
+    public LocalDate[] getDateBor() {
+    	return dateBor;
     }
 
     public int getAccess() {
@@ -95,21 +100,8 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
     public void setAccess(int access) {
         this.access = access;
     }
-     protected int dateBookMatch(String[] borrowedBooks, String bookTitle) { //how to get the index of each book and dateBor
-        if(borrowedBooks[0] == null){return 0;}
-        for (int i = 0; i < borrowedBooks.length; i++) {
-            if (borrowedBooks[i].equals(bookTitle)) {
-                return i;
-            }
-        }
-        return -1;
-    }
     protected double borrowDateTrack(String bookname) {
-        int index;
-        if(this.borrowedBooks.length == 0 || this.borrowedBooks[0] == null){
-            index = 0;
-        }else{
-            index = dateBookMatch(this.borrowedBooks, bookname);}
+        int index = dateBookMatch(this.borrowedBooks, bookname);
         try {
             LocalDate dateBorrowed = dateBor[index]; //date borrowing book
             LocalDate date = LocalDate.now(); //current date
@@ -129,7 +121,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         String book2 = borrowedBooks[1];
         double date1 = borrowDateTrack(borrowedBooks[0]);
         double date2 = borrowDateTrack(borrowedBooks[1]);
-        if(borrowedBooks[0] == null || borrowedBooks[0] == ("") && date1 <= 0 && date2 <= 0){
+        if(borrowedBooks[0].equals(null) || borrowedBooks[0].equals("") && date1 <= 0 && date2 <= 0){
                   this.borrowedBooks[0] = bookName;
                   this.dateBor[0] = LocalDate.now();
                   return bookName + " has been borrowed.";
@@ -168,7 +160,7 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
     }
 
     protected double payLateFees(String bookname) {
-        double payAmt = dateTracking(bookname) * 2;
+        double payAmt = (dateTracking(bookname)-14) * 2;
         return payAmt;
     }
 
@@ -192,8 +184,16 @@ abstract class Account_abstract {//both user and admin can use furhter extend da
         return -1;
     }
 
-   
-public static String addAccount(int uid, String uname, String pwd, int lvl){
+    protected int dateBookMatch(String[] borrowedBooks, String bookTitle) { //how to get the index of each book and dateBor
+        for (int i = 0; i < borrowedBooks.length; i++) {
+            if (borrowedBooks[i].equals(bookTitle)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static String addAccount(int uid, String uname, String pwd, int lvl){
     	try {
             File dir = new File(".");
     		String loc = "/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv";
@@ -268,6 +268,8 @@ public static String addAccount(int uid, String uname, String pwd, int lvl){
         	x = new Scanner(new File(loc));
         	x.useDelimiter("[,\n]");
         	
+        	
+        	
         	while(x.hasNext()) {
         		uid = x.next();
         		uname = x.next();
@@ -278,8 +280,17 @@ public static String addAccount(int uid, String uname, String pwd, int lvl){
         		date1 = x.next();
         		date2 = x.next();
         		
+        		
         		if(uid.equals(Integer.toString(a.getUid()))) {
-        			pw.println(a.getUid()+","+a.getUname()+","+a.getPwd()+","+a.getLvl()+","+a.getBook1()+","+a.getBook2()+","+a.getDate1()+","+ a.getDate2());
+        			if(a.getBook1()==null&&a.getBook2()==null)
+        				pw.println(a.getUid()+","+a.getUname()+","+a.getPwd()+","+a.getLvl()+",NULL,NULL,NULL,NULL");
+            		else if(a.getBook1()==null&&a.getBook2()!=null)
+            			pw.println(a.getUid()+","+a.getUname()+","+a.getPwd()+","+a.getLvl()+",NULL,"+a.getBook2()+",NULL,"+ a.getDate2());
+            		else if(a.getBook1()!=null&&a.getBook2()==null)
+            			pw.println(a.getUid()+","+a.getUname()+","+a.getPwd()+","+a.getLvl()+","+a.getBook1()+",NULL,"+a.getDate1()+",NULL");
+            		else if(a.getBook1()!=null&&a.getBook2()!=null)
+            			pw.println(a.getUid()+","+a.getUname()+","+a.getPwd()+","+a.getLvl()+","+a.getBook1()+","+a.getBook2()+","+a.getDate1()+","+ a.getDate2());
+        			
         		}
         		else {
         			pw.println(uid + "," + uname + "," + pwd + "," + lvl + "," + book1 + "," + book2 + "," + date1 + "," + date2);
@@ -389,6 +400,7 @@ public static String addAccount(int uid, String uname, String pwd, int lvl){
         		qty = x.next();
         		borrowed = x.next();
         		originalAmt = x.next();
+        		
         		
         		if(isbn.equals(Integer.toString(b.getISBN()))) {
         			pw.println(b.getISBN()+","+b.getName()+","+b.getAuthor()+","+b.getYear()+","+b.getGenre()+","+b.getQty()+","+Sbor+","+b.getOriginalAmt());

@@ -1,28 +1,29 @@
+
 import java.time.LocalDate;
 import java.util.*;
 public class main {
     public static void main(String[] args) throws Exception {
         //pull data from database class
         library l1 =new library();
-        l1.addDB("C:\\Users\\ardik\\OneDrive\\Desktop\\bookDB_new.csv");
-        ArrayList<accountDatabase> DBData = accountDatabase.readDB("C:\\Users\\ardik\\OneDrive\\Desktop\\userDB_String.csv");
+        l1.addDB("/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/bookDB.csv");
+        ArrayList<accountDatabase> DBData = accountDatabase.readDB("/Users/kevinmario/Documents/Year 3 - Winter Term 1/COSC 310/userDB.csv");
         //Ask what user wants to do
         //upon creating a new account make new and then end the program
         Scanner in = new Scanner(System.in); //use .equals to compare strings
         System.out.print("What would you like to do? Login (type login) or create a new account (type create): ");
         String decision = in.nextLine();
         if(decision.equals("create")){
-            //add create an account method
-            //CREATE AN ACCOUNT 
-            //ADD TO CSV
-            //TERMINATE USING RETURN;
-            System.out.println("Enter your username:");
-            String uname = in.nextLine();
-            System.out.println("Enter password");
-            String pwd = in.nextLine();
-            int uid = 100000 + new Random().nextInt(900000);
-            createAccount(uid, uname, pwd, 1); //default value for lvl is 1 (user)
+                //create an account method
+                System.out.println("Enter your username:");
+                String uname = in.nextLine();
+                System.out.println("Enter password:");
+                String pwd = in.nextLine();
+                System.out.println("Are you admin or user (Enter 0 for admin and 1 for user):");
+                int lvl = in.nextInt();
+                int uid = (DBData.get(DBData.size()-1).getUid())+1;
+                System.out.println(Account_abstract.addAccount(uid, uname, pwd, lvl)); //default value for lvl is 1 (user)
 
+            
             return;
         }else if(decision.equals("login")){
 
@@ -52,7 +53,6 @@ public class main {
             }else{
                 System.out.println("That is not a valid password. Please enter the right password: ");
             };
-
         }
         accountDatabase loggedIn = DBData.get(index);
         int accessLevel = loggedIn.getLvl();
@@ -79,23 +79,9 @@ public class main {
         System.out.println("Thank you for using our service");
     }
 
-    public static void createAccount(int uid, String uname, String pwd, int lvl){
-        try {
-            File dir = new File(".");
-    		String loc = "userDB.csv"; //change file path!
-    		FileWriter fstream = new FileWriter(loc, true); //append the csv
-    		BufferedWriter out = new BufferedWriter(fstream);
-    		out.write("\n"+uid+","+uname+","+pwd+","+lvl+",NULL,NULL,NULL,NULL");
-    		out.close();
-            } catch (IOException e) {
-            	System.out.println("IOException");
-            }
-    }
-
     private static int DoWhat(int choice, Account_abstract currentUser, library l1) {
         switch(choice) {
             case 0:
-                
                 return 0;
             case 1:
                 bBook(currentUser, l1);
@@ -109,42 +95,70 @@ public class main {
                 System.out.println(currentUser.toString());
                 break;
             case 4:
-            	book n = l1.books.get(l1.books.size());
-            	Account_abstract.addBook(n.getISBN(), n.getName(), n.getAuthor(), n.getYear(), n.getGenre(), n.getQty(), n.getBorrowed(), n.getOriginalAmt());
+            	addBook(currentUser, l1);
                 break;
             case 5:
-            	book o = l1.books.get(l1.books.size());
-            	Account_abstract.removeAccount(o.getISBN());
-                break;
+            	removeBook(currentUser, l1);
+            	break;
             default:
                 System.out.println("incorrect input");
 
         }
         return -1;
         }
+    
+    private static void addBook(Account_abstract currentUser, library l1){
+    	Scanner in = new Scanner(System.in);
+    	System.out.println("Enter book's ISBN:");
+    	int isbn = in.nextInt();
+    	in.nextLine();
+    	System.out.println("Enter book's name:");
+    	String name = in.nextLine();
+    	System.out.println("Enter book's author:");
+    	String author = in.nextLine();
+    	System.out.println("Enter book's year published:");
+    	int year = in.nextInt();
+    	in.nextLine();
+    	System.out.println("Enter book's genre:");
+    	String genre = in.nextLine();
+    	System.out.println("Enter quantity of book:");
+    	int qty = in.nextInt();
+    	int orgAmt = qty;
+    	boolean borrowed = false;
+    	l1.addBook(isbn, name, author, year, genre, qty, borrowed, orgAmt);
+    	if(currentUser.getAccess()==0) {
+    		Account_abstract.addBook(isbn, name, author, year, genre, qty, borrowed, orgAmt);
+    		System.out.println("Book added to the system");
+    	}else
+    		System.out.println("If you are not an administrator, you cannot add books from the database");
+    }
+    
+    private static void removeBook(Account_abstract currentUser, library l1){
+    	Scanner in = new Scanner(System.in);
+    	System.out.println("Enter book's ISBN that you want to remove:");
+    	int isbn = in.nextInt();
+    	l1.removeBook(isbn);
+    	if(currentUser.getAccess()==0) {
+    		Account_abstract.removeBook(isbn);
+    		System.out.println("Book removed from the system");
+    	}else
+    		System.out.println("If you are not an administrator, you cannot add books from the database");
+    }
+    
     private static void bBook(Account_abstract currentUser, library l1){
         Scanner in = new Scanner(System.in);
         System.out.println("These are our selection of books: " ); //SELECTION OF ALL BOOKS AVAILABLE System.out.println(l1.books.get(0));
         for(int i = 0 ; i < l1.books.size(); i++){
             if(l1.books.get(i).getQty() > 0){
-                System.out.print(l1.books.get(i).getName() + " by "+ l1.books.get(i).getAuthor() +", ");
+                System.out.print(l1.books.get(i).getName() +"\n"); //+ " by "+ l1.books.get(i).getAuthor()
             }
         }
         System.out.println("What is the exact title of the book you want to borrow?");
         String bookName = in.nextLine();
-        boolean isitabook = false;
-        for(int i = 0 ; i < l1.books.size(); i++){
-            if(l1.books.get(i).getName().equals(bookName)){
-                isitabook = true;
-                break;}
-            }
-        if (isitabook == false){
-            System.out.println("This is not a book in our database");
-            return;
-        }
         //reduce the number of qty available
         accountDatabase a = new accountDatabase();
         book b = new book();
+        
         for(int i = 0 ; i < l1.books.size(); i++){
             if(l1.books.get(i).getName().equals(bookName)){
                if(l1.books.get(i).getQty() > 0) {
@@ -160,30 +174,41 @@ public class main {
                b.setBorrowed(l1.books.get(i).getBorrowed());
                b.setOriginalAmount(l1.books.get(i).getOriginalAmt());
                
-               a.setUid(currentUser.getUID());
-               a.setUname(currentUser.getName());
-               a.setPwd(currentUser.getPassword());
-               a.setLvl(currentUser.getAccess());
-               a.setBook1(currentUser.getBorrowedBooks()[0]);
-               a.setBook2(currentUser.getBorrowedBooks()[1]);
-               break;
+               if(currentUser.getBorrowedBooks()[0].equals("")) {
+            	   a.setUid(currentUser.getUID());
+            	   a.setUname(currentUser.getName());
+            	   a.setPwd(currentUser.getPassword());
+	               a.setLvl(currentUser.getAccess());
+	               a.setBook1(bookName);
+	               a.setDate1(LocalDate.now());
+               } else {
+            	   a.setUid(currentUser.getUID());
+            	   a.setUname(currentUser.getName());
+            	   a.setPwd(currentUser.getPassword());
+            	   a.setLvl(currentUser.getAccess());
+            	   a.setBook1(currentUser.getBorrowedBooks()[0]);
+            	   a.setBook2(bookName);
+            	   a.setDate1(currentUser.getDateBor()[0]);
+            	   a.setDate2(LocalDate.now());
+               } 
                }
-               else {
-            	   System.out.println("We are out of stock for this book");
-               }
-            }
+            
         }
+           
+            }
         System.out.println(currentUser.borrowBook(bookName));
         Account_abstract.updateBookDB(b);
         Account_abstract.updateAccountDB(a);
     }
+    
     private static void rBook(Account_abstract currentUser, library l1) {
-        Scanner in = new Scanner(System.in);
+    	accountDatabase a = new accountDatabase();
+        book b = new book();
+    	Scanner in = new Scanner(System.in);
         System.out.println("These are your current books: " + Arrays.toString(currentUser.getBorrowedBooks()));
         System.out.println("What is the exact title of the book you would like to return?");
         String bookName = in.nextLine();
-        accountDatabase a = new accountDatabase();
-        book b = new book();
+        
         for(int i = 0 ; i < l1.books.size(); i++){
             if(l1.books.get(i).getName().equals(bookName)){
                int z = l1.books.get(i).getQty();
@@ -199,13 +224,32 @@ public class main {
                 b.setBorrowed(l1.books.get(i).getBorrowed());
                 b.setOriginalAmount(l1.books.get(i).getOriginalAmt());
                 
-                a.setUid(currentUser.getUID());
-                a.setUname(currentUser.getName());
-                a.setPwd(currentUser.getPassword());
-                a.setLvl(currentUser.getAccess());
-                a.setBook1(currentUser.getBorrowedBooks()[0]);
-                a.setBook2(currentUser.getBorrowedBooks()[1]);
-                
+                if(currentUser.getBorrowedBooks()[1].equals(bookName)) {
+             	   a.setUid(currentUser.getUID());
+             	   a.setUname(currentUser.getName());
+             	   a.setPwd(currentUser.getPassword());
+ 	               a.setLvl(currentUser.getAccess());
+ 	               a.setBook1(currentUser.getBorrowedBooks()[0]);
+ 	               a.setBook2(null);
+ 	               a.setDate1(currentUser.getDateBor()[0]);
+ 	               a.setDate2(null);
+                } else if(currentUser.getBorrowedBooks()[0].equals(bookName)&&currentUser.getBorrowedBooks()[1].equals("")){
+                   a.setUid(currentUser.getUID());
+              	   a.setUname(currentUser.getName());
+              	   a.setPwd(currentUser.getPassword());
+  	               a.setLvl(currentUser.getAccess());
+  	               a.setBook1(null);
+  	               a.setDate1(null);
+                }else if(currentUser.getBorrowedBooks()[0].equals(bookName)&&!currentUser.getBorrowedBooks()[1].equals("")){
+                   a.setUid(currentUser.getUID());
+               	   a.setUname(currentUser.getName());
+               	   a.setPwd(currentUser.getPassword());
+   	               a.setLvl(currentUser.getAccess());
+   	               a.setBook1(null);
+   	               a.setBook2(currentUser.getBorrowedBooks()[1]);
+   	               a.setDate1(null);
+   	               a.setDate2(currentUser.getDateBor()[1]);
+                }
                }else{
                 l1.books.get(i).setBorrowed(false);
                 b.setISBN(l1.books.get(i).getISBN());
@@ -217,20 +261,41 @@ public class main {
                 b.setBorrowed(l1.books.get(i).getBorrowed());
                 b.setOriginalAmount(l1.books.get(i).getOriginalAmt());
                 
-                a.setUid(currentUser.getUID());
-                a.setUname(currentUser.getName());
-                a.setPwd(currentUser.getPassword());
-                a.setLvl(currentUser.getAccess());
-                a.setBook1(currentUser.getBorrowedBooks()[0]);
-                a.setBook2(currentUser.getBorrowedBooks()[1]);
+                if(currentUser.getBorrowedBooks()[1].equals(bookName)) {
+              	   a.setUid(currentUser.getUID());
+              	   a.setUname(currentUser.getName());
+              	   a.setPwd(currentUser.getPassword());
+  	               a.setLvl(currentUser.getAccess());
+  	               a.setBook1(currentUser.getBorrowedBooks()[0]);
+  	               a.setBook2(null);
+  	               a.setDate1(currentUser.getDateBor()[0]);
+  	               a.setDate2(null);
+                 } else if(currentUser.getBorrowedBooks()[0].equals(bookName)&&currentUser.getBorrowedBooks()[1].equals("")){
+                    a.setUid(currentUser.getUID());
+               	   a.setUname(currentUser.getName());
+               	   a.setPwd(currentUser.getPassword());
+   	               a.setLvl(currentUser.getAccess());
+   	               a.setBook1(null);
+   	               a.setDate1(null);
+                 }else if(currentUser.getBorrowedBooks()[0].equals(bookName)&&!currentUser.getBorrowedBooks()[1].equals("")){
+                    a.setUid(currentUser.getUID());
+                	   a.setUname(currentUser.getName());
+                	   a.setPwd(currentUser.getPassword());
+    	               a.setLvl(currentUser.getAccess());
+    	               a.setBook1(null);
+    	               a.setBook2(currentUser.getBorrowedBooks()[1]);
+    	               a.setDate1(null);
+    	               a.setDate2(currentUser.getDateBor()[1]);
+                 }
                }
         }
-               break;
+            
             }
         System.out.println(currentUser.returnBook(bookName));
         Account_abstract.updateBookDB(b);
         Account_abstract.updateAccountDB(a);
         }
+        
     
 
     private static void showOptions(int access) {
@@ -238,12 +303,11 @@ public class main {
                 "1. Borrow a book (press 1) \n" +
                 "2. Return a book (press 2) \n" +
                 "3. Check your borrowing status (press 3) \n"
-
         );
         if(access == 0){
             System.out.println(
                     "4. Add a book to the database (press 4) \n" +
-                            "5. Remove a book from the database (press 5)\n"
+                    		"5. Remove a book from the database (press 5)\n"
             );
         }
     }

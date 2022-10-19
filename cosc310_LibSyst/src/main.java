@@ -16,6 +16,13 @@ public class main {
             //CREATE AN ACCOUNT 
             //ADD TO CSV
             //TERMINATE USING RETURN;
+            System.out.println("Enter your username:");
+            String uname = in.nextLine();
+            System.out.println("Enter password");
+            String pwd = in.nextLine();
+            int uid = 100000 + new Random().nextInt(900000);
+            createAccount(uid, uname, pwd, 0);
+
             return;
         }else if(decision.equals("login")){
 
@@ -70,6 +77,19 @@ public class main {
         }
         //rewrite final system
         System.out.println("Thank you for using our service");
+    }
+
+    public static void createAccount(int uid, String uname, String pwd, int lvl){
+        try {
+            File dir = new File(".");
+    		String loc = "userDB.csv"; //change file path!
+    		FileWriter fstream = new FileWriter(loc, true); //append the csv
+    		BufferedWriter out = new BufferedWriter(fstream);
+    		out.write("\n"+uid+","+uname+","+pwd+","+lvl+",NULL,NULL,NULL,NULL");
+    		out.close();
+            } catch (IOException e) {
+            	System.out.println("IOException");
+            }
     }
 
     private static int DoWhat(int choice, Account_abstract currentUser, library l1) {

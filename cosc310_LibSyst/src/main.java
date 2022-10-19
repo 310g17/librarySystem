@@ -21,7 +21,7 @@ public class main {
             System.out.println("Enter password");
             String pwd = in.nextLine();
             int uid = 100000 + new Random().nextInt(900000);
-            createAccount(uid, uname, pwd, 0);
+            createAccount(uid, uname, pwd, 1); //default value for lvl is 1 (user)
 
             return;
         }else if(decision.equals("login")){

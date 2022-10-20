@@ -11,7 +11,7 @@ Upon loading code onto device, filepaths in the main and Account_abstract class 
 
 ![alt text](https://github.com/310g17/librarySystem/blob/main/rscforReadme/Class%20Organization%20Structure.jpg)<br/>
 
-Shown above is how our classes are organized in the library system. The source code can be found under the librarySystem filed. The methods used for each class is as follows: <br/>
+Shown above is how our classes are organized in the library system. The source code can be found under the cosc310_LibSyst file. The methods used for each class is as follows: <br/>
 <H3>Main Method: main.java </H3><br/>
 The main method is the method that users will interact with. IMPORTANT: FILEPATHS MUST BE REINPUTTED TO MATCH USER DIRECTORIES, THERE ARE TWO FILES: bookDB_new.csv and userDB - userDB w String.csv </br>
 
